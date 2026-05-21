@@ -3,242 +3,698 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Square Number Patterns — Ganita Prakash Grade 8</title>
+<title>Square Patterns — Ganita Prakash Grade 8</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#f5f4f0;--surface:#fff;--surface2:#f0ede8;--border:#d8d4cc;
   --text:#1a1814;--text2:#5a5650;--text3:#9a958e;
   --blue:#2c5f9e;--red:#c0392b;--green:#1a7a4a;--orange:#e08020;
-  --u1:#2c5f9e;--u4:#1a7a4a;--u5:#e08020;--u6:#7c3aed;--u9:#c0392b;--u0:#9a958e;
-  --font:'DM Sans',-apple-system,sans-serif;--mono:'DM Mono',ui-monospace,monospace;
+  --font:'DM Sans',-apple-system,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
 }
-body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5}
-.page{max-width:920px;margin:0 auto;padding:28px 20px}
-.lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:5px}
-.title{font-size:22px;font-weight:700;margin-bottom:5px}
-.subtitle{font-size:14px;color:var(--text2);margin-bottom:22px;max-width:560px;line-height:1.5}
+body{font-family:var(--font);background:var(--bg);color:var(--text);
+  min-height:100vh;-webkit-font-smoothing:antialiased;padding:24px 16px;line-height:1.5}
+.app{max-width:960px;margin:0 auto}
+
+.head{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.head-ic{width:42px;height:42px;border-radius:10px;background:var(--surface2);
+  border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-weight:600;color:var(--text2);font-size:16px;flex-shrink:0}
+.lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text3);margin-bottom:2px}
+.title{font-size:22px;font-weight:700;line-height:1.2}
+
 .card{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:22px;margin-bottom:16px}
 
-/* Mode buttons */
-.mode-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
-.mode-btn{padding:7px 16px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-weight:500;color:var(--text2);background:var(--surface);cursor:pointer;font-family:var(--font);transition:all .12s}
-.mode-btn.active{background:var(--text);color:#fff;border-color:var(--text)}
-.mode-btn:hover:not(.active){border-color:var(--text)}
+/* Tab bar */
+.tabs{display:flex;gap:4px;background:var(--surface2);border:1.5px solid var(--border);
+  border-radius:10px;padding:4px;margin-bottom:20px}
+.tab{flex:1;padding:9px 8px;border:none;background:transparent;border-radius:7px;
+  font-family:var(--font);font-size:13px;font-weight:600;color:var(--text2);
+  cursor:pointer;transition:all .15s;text-align:center}
+.tab.active{background:var(--surface);color:var(--text);
+  box-shadow:0 1px 3px rgba(0,0,0,.08);border:1.5px solid var(--border)}
 
-/* ── UNITS DIGIT ── */
-.impossible-strip{background:#fff5f5;border:1.5px solid #fca5a5;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13.5px;color:#dc2626;font-weight:600}
+.view{display:none}
+.view.active{display:block}
 
-/* click-a-number pad */
-.num-pad{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:18px}
-.np-cell{aspect-ratio:.9;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;transition:all .15s;user-select:none;gap:3px}
-.np-cell:hover{border-color:var(--text3)}
-.np-cell.selected{border-color:var(--text);box-shadow:0 0 0 2.5px rgba(26,20,16,.12)}
-.np-n{font-family:var(--mono);font-size:20px;font-weight:700;line-height:1}
-.np-sq{font-size:10.5px;color:var(--text3);font-family:var(--mono)}
-.np-dot{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
+/* ══ WHEEL VIEW ══════════════════════════════════════════ */
+.wheel-layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center}
+@media(max-width:620px){.wheel-layout{grid-template-columns:1fr}}
 
-/* Detail panel */
-.detail-card{background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:16px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-bottom:14px;min-height:80px}
-.dc-n{font-family:var(--mono);font-size:44px;font-weight:700;line-height:1;color:var(--text)}
-.dc-arrow{font-size:24px;color:var(--text3)}
-.dc-sq{font-family:var(--mono);font-size:44px;font-weight:700;line-height:1}
-.dc-facts{flex:1;min-width:180px;font-size:13.5px;color:var(--text2);line-height:1.7}
-.dc-badge{display:inline-block;padding:3px 10px;border-radius:7px;font-size:12px;font-weight:600;border:1.5px solid}
+.wheel-wrap{position:relative;display:flex;justify-content:center;align-items:center}
+#wheel-canvas{cursor:grab;display:block;touch-action:none}
+#wheel-canvas:active{cursor:grabbing}
 
-/* Legend */
-.ud-legend{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:4px}
-.ud-chip{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:7px;font-size:12.5px;font-weight:600;border:1.5px solid}
-.ud-dot{width:11px;height:11px;border-radius:50%}
+.wheel-info{display:flex;flex-direction:column;gap:12px}
+.wi-big{text-align:center;padding:18px;background:var(--surface2);border:1.5px solid var(--border);
+  border-radius:12px}
+.wi-digit{font-family:var(--mono);font-size:56px;font-weight:800;line-height:1}
+.wi-label{font-size:12px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.wi-arrow{font-size:32px;color:var(--text3);text-align:center}
+.wi-result{text-align:center;padding:18px;border-radius:12px;border:1.5px solid}
+.wi-res-digit{font-family:var(--mono);font-size:56px;font-weight:800;line-height:1}
+.wi-res-label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
 
-/* ── TRAILING ZEROS ── */
-.rule-card{background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:13px 16px;font-size:14px;font-weight:600;color:#15803d;margin-bottom:16px;text-align:center}
-.zeros-list{display:flex;flex-direction:column;gap:8px}
-.ze-row{display:flex;align-items:center;gap:10px;background:var(--surface);border:1.5px solid var(--border);border-radius:9px;padding:10px 14px;flex-wrap:wrap}
-.ze-n{font-family:var(--mono);font-size:18px;font-weight:700;min-width:72px}
-.ze-z{font-size:12px;color:var(--text3);font-weight:500;min-width:64px}
-.ze-arr{color:var(--text3);font-size:16px}
-.ze-sq{font-family:var(--mono);font-size:18px;font-weight:700;min-width:90px}
-.ze-sz{font-size:12px;color:var(--text2);font-weight:700;min-width:72px}
-.ze-rule{font-size:12.5px;color:var(--green);font-weight:700;margin-left:auto}
+.blocked-strip{background:#fff0f0;border:1.5px solid #ffc5c5;border-radius:10px;
+  padding:12px 16px;font-size:13px;color:var(--red);font-weight:600;margin-top:12px;
+  text-align:center;line-height:1.6}
+.possible-strip{background:#f0f7f3;border:1.5px solid #b5d9c5;border-radius:10px;
+  padding:12px 16px;font-size:13px;color:var(--green);font-weight:600;margin-top:12px;
+  text-align:center;line-height:1.6}
+.hint-text{font-size:12px;color:var(--text3);text-align:center;margin-top:8px}
 
-/* ── DIFFERENCES ── */
-.diff-n-row{display:flex;align-items:center;gap:12px;margin-bottom:16px}
-.diff-n-row label{font-size:13px;font-weight:500;color:var(--text2)}
-.diff-n-row input{flex:1;max-width:200px;height:5px;accent-color:var(--blue);cursor:pointer}
-.diff-n-row .nv{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--blue);min-width:24px}
-.diff-chain{display:flex;flex-wrap:wrap;align-items:center;gap:0;margin-bottom:16px}
-.diff-sq-val{font-family:var(--mono);font-size:17px;font-weight:700;color:var(--blue);padding:6px 8px}
-.diff-gap-wrap{display:flex;flex-direction:column;align-items:center;gap:2px;padding:0 4px}
-.diff-line{height:2px;background:var(--border);width:48px}
-.diff-odd{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--red)}
-.insight{background:#fff8f0;border:1.5px solid #f0d8c0;border-radius:10px;padding:13px 18px;font-size:13.5px;color:#6b4400;line-height:1.65}
-.insight strong{color:#a05000}
-.insight .eq{font-family:var(--mono);font-size:13px;display:block;margin:2px 0}
+/* ══ ZEROS VIEW ══════════════════════════════════════════ */
+.zeros-layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+@media(max-width:620px){.zeros-layout{grid-template-columns:1fr}}
+
+.zero-canvas-wrap{display:flex;justify-content:center}
+#zeros-canvas{display:block}
+
+.zeros-panel{display:flex;flex-direction:column;gap:10px}
+.z-ctrl{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.z-ctrl label{font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+.z-ctrl input[type=range]{flex:1;accent-color:var(--blue);height:5px}
+.z-ctrl .nv{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--blue);min-width:24px}
+
+.z-stat{padding:14px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;text-align:center}
+.z-stat .zs-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:4px}
+.z-stat .zs-val{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--text)}
+.z-stat .zs-sub{font-size:11px;color:var(--text3);margin-top:2px;font-family:var(--mono)}
+
+.z-rule{padding:12px 14px;background:#f0f7f3;border:1.5px solid #b5d9c5;border-radius:9px;
+  font-size:13px;color:var(--green);font-weight:600;text-align:center}
+
+/* ══ GNOMON VIEW ══════════════════════════════════════════ */
+.gnomon-layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center}
+@media(max-width:620px){.gnomon-layout{grid-template-columns:1fr}}
+
+.gnomon-canvas-wrap{display:flex;justify-content:center;align-items:center;
+  background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;
+  padding:16px;min-height:280px}
+#gnomon-canvas{display:block;max-width:100%}
+
+.gnomon-panel{display:flex;flex-direction:column;gap:10px}
+.g-ctrl{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.g-ctrl label{font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.4px}
+.g-ctrl input[type=range]{flex:1;accent-color:var(--orange);height:5px}
+.g-ctrl .nv{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--orange);min-width:28px}
+
+.g-stat{padding:12px 14px;background:var(--surface2);border:1.5px solid var(--border);border-radius:9px;text-align:center}
+.g-stat .gs-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:3px}
+.g-stat .gs-val{font-family:var(--mono);font-size:20px;font-weight:700}
+
+.g-formula{padding:12px 14px;background:#fff8f0;border:1.5px solid #f0d8c0;border-radius:9px;
+  font-family:var(--mono);font-size:13px;color:#6b4400;font-weight:600;text-align:center;line-height:1.8}
+
+.g-chain{display:flex;flex-wrap:wrap;gap:6px;padding:12px;background:var(--surface2);
+  border:1.5px solid var(--border);border-radius:9px}
+.g-chain-item{padding:4px 10px;border-radius:6px;font-family:var(--mono);font-size:13px;font-weight:700}
+.g-chain-item.current{outline:2px solid;outline-offset:2px}
+
+.insight{background:#fff8f0;border:1px solid #f0d8c0;border-left:3px solid var(--orange);
+  border-radius:0 8px 8px 0;padding:11px 14px;font-size:13px;color:#6b4400;line-height:1.65;margin-top:12px}
+.insight strong{color:#4a2e00}
 </style>
 </head>
 <body>
-<div class="page">
-  <div class="lbl">Chapter 1 · A Square and A Cube</div>
-  <div class="title">Square Number Patterns</div>
-  <div class="subtitle">Perfect squares follow strict rules. Click a number to explore its units digit. Switch modes to see how trailing zeros and differences between squares behave.</div>
-
-  <div class="mode-row">
-    <button class="mode-btn active" onclick="setMode('units')">Units digit</button>
-    <button class="mode-btn" onclick="setMode('zeros')">Trailing zeros</button>
-    <button class="mode-btn" onclick="setMode('diffs')">Differences</button>
-  </div>
-
-  <!-- UNITS DIGIT -->
-  <div id="mUnits">
-    <div class="card">
-      <div class="impossible-strip">
-        If a number ends in <strong>2, 3, 7 or 8</strong> — it can never be a perfect square. Rule it out instantly without any calculation.
-      </div>
-      <div class="ud-legend" id="udLegend"></div>
-      <div style="margin-bottom:14px"></div>
-      <div class="detail-card" id="detailCard">
-        <div class="dc-n" id="dcN">—</div>
-        <div class="dc-arrow">→</div>
-        <div class="dc-sq" id="dcSq">—</div>
-        <div class="dc-facts" id="dcFacts"><span style="color:var(--text3)">Click any number below.</span></div>
-      </div>
-      <div class="num-pad" id="numPad"></div>
+<div class="app">
+  <div class="head">
+    <div class="head-ic">1</div>
+    <div>
+      <div class="lbl">Chapter 1 · A Square and A Cube</div>
+      <div class="title">Square Number Patterns</div>
     </div>
   </div>
 
-  <!-- TRAILING ZEROS -->
-  <div id="mZeros" style="display:none">
-    <div class="card">
-      <div class="rule-card">If n has k trailing zeros, then n² has 2k trailing zeros — always exactly double.</div>
-      <div class="zeros-list" id="zerosList"></div>
-      <div class="insight" style="margin-top:14px">
-        <strong>Consequence:</strong> A perfect square can only have 0, 2, 4, 6… (an even number of) trailing zeros. Any number ending in exactly 1, 3, or 5 zeros is definitely NOT a perfect square.
-      </div>
+  <div class="card">
+    <div class="tabs">
+      <button class="tab active" data-tab="wheel">Units digit wheel</button>
+      <button class="tab" data-tab="zeros">Trailing zeros</button>
+      <button class="tab" data-tab="gnomon">Gnomon builder</button>
     </div>
-  </div>
 
-  <!-- DIFFERENCES -->
-  <div id="mDiffs" style="display:none">
-    <div class="card">
-      <div class="diff-n-row">
-        <label>Show first</label>
-        <input type="range" id="diffN" min="2" max="16" value="8" oninput="buildDiffs()">
-        <span class="nv" id="diffNv">8</span>
-        <label>squares</label>
+    <!-- ══ WHEEL ══ -->
+    <div class="view active" id="view-wheel">
+      <div style="font-size:14px;color:var(--text2);margin-bottom:18px;line-height:1.6">
+        <strong style="color:var(--text)">Spin the wheel</strong> to any units digit — only 6 out of 10 digits can ever be the last digit of a perfect square. The rest are permanently blocked.
       </div>
-      <div class="diff-chain" id="diffChain"></div>
-      <div class="insight">
-        <strong>The gap between consecutive squares is always an odd number.</strong>
-        <span class="eq">(n+1)² − n² = 2n+1</span>
-        This is the (n+1)th odd number — which is exactly why adding consecutive odd numbers builds squares!
+      <div class="wheel-layout">
+        <div class="wheel-wrap">
+          <canvas id="wheel-canvas" width="280" height="280"></canvas>
+        </div>
+        <div class="wheel-info">
+          <div class="wi-big">
+            <div class="wi-digit" id="w-input-digit">3</div>
+            <div class="wi-label">Units digit of n</div>
+          </div>
+          <div class="wi-arrow">↓ square it</div>
+          <div class="wi-result" id="w-result-box">
+            <div class="wi-res-digit" id="w-output-digit">9</div>
+            <div class="wi-res-label" id="w-output-label">Units digit of n²</div>
+          </div>
+          <div id="w-verdict"></div>
+          <div class="hint-text">Drag wheel left/right to spin</div>
+        </div>
+      </div>
+      <div class="insight" style="margin-top:16px">
+        <strong>Why only 6 digits?</strong> The units digit of n² only depends on the units digit of n — so there are only 10 cases to check (0–9). The digits 2, 3, 7, 8 never appear. So if any number ends in those digits, it cannot be a perfect square — no calculation needed.
       </div>
     </div>
+
+    <!-- ══ ZEROS ══ -->
+    <div class="view" id="view-zeros">
+      <div style="font-size:14px;color:var(--text2);margin-bottom:18px;line-height:1.6">
+        <strong style="color:var(--text)">Drag the slider</strong> to add trailing zeros to n. Watch the trailing zeros in n² always exactly double. The orange blocks are trailing zeros — each zero in n creates two in n².
+      </div>
+      <div class="zeros-layout">
+        <div class="zero-canvas-wrap">
+          <canvas id="zeros-canvas" width="320" height="320"></canvas>
+        </div>
+        <div class="zeros-panel">
+          <div class="z-ctrl">
+            <label>Trailing zeros in n</label>
+            <input type="range" id="z-zeros" min="0" max="4" value="1">
+            <span class="nv" id="z-zeros-val">1</span>
+          </div>
+          <div class="z-ctrl">
+            <label>Leading digits</label>
+            <input type="range" id="z-lead" min="1" max="9" value="3">
+            <span class="nv" id="z-lead-val" style="color:var(--text2)">3</span>
+          </div>
+          <div class="z-stat">
+            <div class="zs-lbl">n</div>
+            <div class="zs-val" id="z-n-val">30</div>
+            <div class="zs-sub" id="z-n-zeros">1 trailing zero</div>
+          </div>
+          <div class="z-stat">
+            <div class="zs-lbl">n²</div>
+            <div class="zs-val" id="z-sq-val">900</div>
+            <div class="zs-sub" id="z-sq-zeros">2 trailing zeros</div>
+          </div>
+          <div class="z-rule" id="z-rule">1 zero → 2 zeros (doubled ✓)</div>
+          <div class="insight">
+            <strong>Consequence:</strong> Perfect squares can only have 0, 2, 4, 6… trailing zeros. A number ending in an <em>odd</em> number of zeros (like 10, 1000, 100000) is <strong>never</strong> a perfect square.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ GNOMON ══ -->
+    <div class="view" id="view-gnomon">
+      <div style="font-size:14px;color:var(--text2);margin-bottom:18px;line-height:1.6">
+        <strong style="color:var(--text)">Move the slider</strong> to build squares by adding L-shaped <em>gnomons</em>. Each gnomon is an odd number of cells. Consecutive odd numbers stack up to make perfect squares.
+      </div>
+      <div class="gnomon-layout">
+        <div class="gnomon-canvas-wrap">
+          <canvas id="gnomon-canvas"></canvas>
+        </div>
+        <div class="gnomon-panel">
+          <div class="g-ctrl">
+            <label>n =</label>
+            <input type="range" id="g-n" min="1" max="8" value="4">
+            <span class="nv" id="g-n-val">4</span>
+          </div>
+          <div class="g-stat">
+            <div class="gs-lbl">n²</div>
+            <div class="gs-val" style="color:var(--blue)" id="g-sq">16</div>
+          </div>
+          <div class="g-stat">
+            <div class="gs-lbl">Latest gnomon added</div>
+            <div class="gs-val" style="color:var(--orange)" id="g-gnomon">7 cells (2×4−1)</div>
+          </div>
+          <div class="g-formula" id="g-formula">
+            1 + 3 + 5 + 7 = 16 = 4²
+          </div>
+          <div class="g-stat" style="background:#fff8f0;border-color:#f0d8c0">
+            <div class="gs-lbl">Sum of first n odd numbers</div>
+            <div class="gs-val" style="color:var(--orange)" id="g-sum-check">= n²</div>
+          </div>
+          <div class="insight">
+            <strong>The gnomon rule:</strong> (n+1)² − n² = 2n+1, which is always odd. So going from one perfect square to the next always requires adding an odd number of unit squares.
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
 <script>
-const UD_COLORS={0:'#9a958e',1:'#2c5f9e',4:'#1a7a4a',5:'#e08020',6:'#7c3aed',9:'#c0392b'};
-
-// Legend
-function buildLegend(){
-  const el=document.getElementById('udLegend');
-  el.innerHTML='';
-  Object.entries(UD_COLORS).forEach(([d,c])=>{
-    const div=document.createElement('div');
-    div.className='ud-chip';
-    div.style.cssText=`border-color:${c}55;background:${c}0d;color:${c}`;
-    div.innerHTML=`<div class="ud-dot" style="background:${c}"></div>ends in ${d}`;
-    el.appendChild(div);
+// ══════════════════════════════════════════════════════════
+// TABS
+// ══════════════════════════════════════════════════════════
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('view-' + tab.dataset.tab).classList.add('active');
   });
-  const bad=document.createElement('div');
-  bad.className='ud-chip';
-  bad.style.cssText='border-color:#fca5a5;background:#fff5f5;color:#dc2626';
-  bad.innerHTML=`<div class="ud-dot" style="background:#fca5a5;border:1.5px dashed #dc2626"></div>2, 3, 7, 8 — impossible`;
-  el.appendChild(bad);
-}
+});
 
-// Number pad 1-25
-function buildPad(){
-  const pad=document.getElementById('numPad');
-  pad.innerHTML='';
-  for(let n=1;n<=25;n++){
-    const sq=n*n, u=sq%10;
-    const c=UD_COLORS[u]||'#888';
-    const cell=document.createElement('div');
-    cell.className='np-cell';
-    cell.id='np'+n;
-    cell.innerHTML=`<span class="np-n">${n}</span><span class="np-sq">${n}²=${sq}</span><div class="np-dot" style="background:${c}">${u}</div>`;
-    cell.onclick=()=>selectN(n);
-    pad.appendChild(cell);
+// ══════════════════════════════════════════════════════════
+// WHEEL — units digit
+// ══════════════════════════════════════════════════════════
+(function(){
+  const canvas = document.getElementById('wheel-canvas');
+  const ctx = canvas.getContext('2d');
+  const CX = canvas.width/2, CY = canvas.height/2;
+  const R = 110, INNER = 48;
+  const DIGITS = [0,1,2,3,4,5,6,7,8,9];
+  const N_SLOTS = 10;
+  const SLOT_ANGLE = (2*Math.PI) / N_SLOTS;
+
+  // Which units digits produce valid square endings
+  const SQ_END = {0:0, 1:1, 2:4, 3:9, 4:6, 5:5, 6:6, 7:9, 8:4, 9:1};
+  const POSSIBLE = new Set([0,1,4,5,6,9]);
+  const IMPOSSIBLE = new Set([2,3,7,8]);
+
+  const COLORS = {
+    possible:   '#2c5f9e',
+    impossible: '#c0392b',
+    selected:   '#e08020',
+  };
+
+  let currentAngle = 0; // rotation of wheel (radians)
+  // Current top digit index
+  function topDigit(){
+    // angle 0 = digit 0 at top. rotating clockwise shows digits in order
+    const raw = ((-currentAngle / SLOT_ANGLE) % N_SLOTS + N_SLOTS) % N_SLOTS;
+    return Math.round(raw) % N_SLOTS;
   }
-}
 
-function selectN(n){
-  document.querySelectorAll('.np-cell').forEach(c=>c.classList.remove('selected'));
-  document.getElementById('np'+n)?.classList.add('selected');
-  const sq=n*n, u=sq%10;
-  const c=UD_COLORS[u]||'#888';
-  document.getElementById('dcN').textContent=n;
-  document.getElementById('dcSq').textContent=sq;
-  document.getElementById('dcSq').style.color=c;
-  const isOdd=n%2===1;
-  document.getElementById('dcFacts').innerHTML=
-    `<strong>${n}² = ${sq}</strong> — ends in <strong style="color:${c}">${u}</strong><br>
-    ${isOdd?`${n} is odd → ${n}² is odd`:`${n} is even → ${n}² is even`}<br>
-    <span class="dc-badge" style="background:${c}11;border-color:${c}55;color:${c}">units digit: ${n%10} → squares to ${u}</span>`;
-}
+  function drawWheel(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-// Trailing zeros
-function buildZeros(){
-  const items=[10,20,100,200,300,1000,40,9000];
-  const list=document.getElementById('zerosList');
-  list.innerHTML='';
-  items.forEach(n=>{
-    const sq=n*n;
-    const zn=(n.toString().match(/0+$/)||[''])[0].length;
-    const zsq=(sq.toString().match(/0+$/)||[''])[0].length;
-    const div=document.createElement('div');
-    div.className='ze-row';
-    div.innerHTML=`<span class="ze-n">${n}</span><span class="ze-z">(${zn} zero${zn!==1?'s':''})</span><span class="ze-arr">→</span><span class="ze-sq">${sq.toLocaleString('en-IN')}</span><span class="ze-sz">(${zsq} zeros)</span><span class="ze-rule">${zn}×2=${zsq} ✓</span>`;
-    list.appendChild(div);
-  });
-}
+    // Shadow
+    ctx.save();
+    ctx.shadowColor='rgba(0,0,0,0.12)';
+    ctx.shadowBlur=14;
+    ctx.beginPath();
+    ctx.arc(CX, CY, R+4, 0, Math.PI*2);
+    ctx.fillStyle='#fff';
+    ctx.fill();
+    ctx.restore();
 
-// Differences
-function buildDiffs(){
-  const nMax=parseInt(document.getElementById('diffN').value);
-  document.getElementById('diffNv').textContent=nMax;
-  const chain=document.getElementById('diffChain');
-  chain.innerHTML='';
-  for(let n=1;n<=nMax;n++){
-    const sq=n*n;
-    const v=document.createElement('span');
-    v.className='diff-sq-val';
-    v.textContent=sq;
-    chain.appendChild(v);
-    if(n<nMax){
-      const diff=(n+1)*(n+1)-sq;
-      const gw=document.createElement('div');
-      gw.className='diff-gap-wrap';
-      gw.innerHTML=`<div class="diff-line"></div><div class="diff-odd">+${diff}</div>`;
-      chain.appendChild(gw);
+    // Segments
+    for(let i=0; i<N_SLOTS; i++){
+      const startA = currentAngle + i * SLOT_ANGLE - SLOT_ANGLE/2 - Math.PI/2;
+      const endA = startA + SLOT_ANGLE;
+      const digit = i;
+      const isImpossible = IMPOSSIBLE.has(digit);
+      const isTop = digit === topDigit();
+
+      // Segment fill
+      ctx.beginPath();
+      ctx.moveTo(CX, CY);
+      ctx.arc(CX, CY, R, startA, endA);
+      ctx.closePath();
+      if(isTop){
+        ctx.fillStyle = '#e08020';
+      } else if(isImpossible){
+        ctx.fillStyle = '#fce8e8';
+      } else {
+        ctx.fillStyle = '#e8eff9';
+      }
+      ctx.fill();
+
+      // Segment border
+      ctx.strokeStyle = '#d8d4cc';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // Digit label
+      const midA = currentAngle + i * SLOT_ANGLE - Math.PI/2;
+      const tx = CX + (R*0.68) * Math.cos(midA);
+      const ty = CY + (R*0.68) * Math.sin(midA);
+      ctx.save();
+      ctx.translate(tx, ty);
+      ctx.rotate(midA + Math.PI/2);
+      ctx.font = `bold ${isTop?'22':'18'}px DM Mono, monospace`;
+      ctx.fillStyle = isTop ? '#fff' : (isImpossible ? '#c0392b' : '#2c5f9e');
+      ctx.textAlign='center';
+      ctx.textBaseline='middle';
+      ctx.fillText(String(digit), 0, 0);
+      // X mark for impossible
+      if(isImpossible && !isTop){
+        ctx.font='12px DM Sans';
+        ctx.fillStyle='#e08080';
+        ctx.fillText('✗', 0, 14);
+      }
+      ctx.restore();
+    }
+
+    // Inner circle (hub)
+    ctx.beginPath();
+    ctx.arc(CX, CY, INNER, 0, Math.PI*2);
+    ctx.fillStyle='#fff';
+    ctx.strokeStyle='#d8d4cc';
+    ctx.lineWidth=2;
+    ctx.fill();
+    ctx.stroke();
+
+    // Hub text
+    ctx.font='bold 13px DM Sans';
+    ctx.fillStyle='#9a958e';
+    ctx.textAlign='center';
+    ctx.textBaseline='middle';
+    ctx.fillText('units', CX, CY-7);
+    ctx.fillText('digit', CX, CY+7);
+
+    // Pointer (top indicator)
+    ctx.beginPath();
+    ctx.moveTo(CX-10, CY - R - 8);
+    ctx.lineTo(CX+10, CY - R - 8);
+    ctx.lineTo(CX, CY - R + 4);
+    ctx.closePath();
+    ctx.fillStyle='#1a1814';
+    ctx.fill();
+  }
+
+  function updateInfo(){
+    const d = topDigit();
+    const sqEnd = SQ_END[d];
+    const isPossible = POSSIBLE.has(sqEnd);
+    const isImpossible = IMPOSSIBLE.has(d);
+
+    // The digit shown is the input digit (units digit of n)
+    // The output is (d²) % 10
+    document.getElementById('w-input-digit').textContent = d;
+    document.getElementById('w-output-digit').textContent = (d*d)%10;
+    document.getElementById('w-output-digit').style.color =
+      IMPOSSIBLE.has(d) ? 'var(--red)' : 'var(--blue)';
+
+    const box = document.getElementById('w-result-box');
+    const outLabel = document.getElementById('w-output-label');
+    if(IMPOSSIBLE.has(d)){
+      // Wait — d is the INPUT digit. We're squaring it.
+      // If d ∈ {2,3,7,8}, then d² ends in {4,9,9,4} — which ARE possible.
+      // The question is the REVERSE: can a number ending in d be a perfect square?
+      // If d ∈ {2,3,7,8}: NO number ending in d can be a perfect square.
+      box.style.background='#fff0f0';
+      box.style.borderColor='#ffc5c5';
+      outLabel.textContent='Units digit of n²';
+      outLabel.style.color='#c0392b';
+    } else {
+      box.style.background='#f0f7f9';
+      box.style.borderColor='#b5d4e8';
+      outLabel.textContent='Units digit of n²';
+      outLabel.style.color='var(--blue)';
+    }
+
+    // Verdict
+    const verdict = document.getElementById('w-verdict');
+    if(IMPOSSIBLE.has(d)){
+      verdict.innerHTML=`<div class="blocked-strip">Any number ending in <strong>${d}</strong> is <strong>NOT</strong> a perfect square.<br>No calculation needed — instantly ruled out.</div>`;
+    } else {
+      const examples = Array.from({length:5},(_,i)=>{
+        // find numbers ending in d whose squares end in d*d%10
+        const n = i*10 + d;
+        return n > 0 ? `${n}² = ${n*n}` : null;
+      }).filter(Boolean).slice(0,3);
+      verdict.innerHTML=`<div class="possible-strip">Numbers ending in <strong>${d}</strong> → square ends in <strong>${(d*d)%10}</strong><br>${examples.join(',  ')}</div>`;
     }
   }
-}
 
-function setMode(m){
-  ['units','zeros','diffs'].forEach((k,i)=>{
-    document.querySelectorAll('.mode-btn')[i].classList.toggle('active',k===m);
-    document.getElementById('m'+k.charAt(0).toUpperCase()+k.slice(1)).style.display=k===m?'block':'none';
+  // Drag to spin
+  let isDragging = false, lastX = 0, spinVelocity = 0;
+
+  canvas.addEventListener('pointerdown', e => {
+    isDragging=true; lastX=e.clientX; spinVelocity=0;
+    canvas.setPointerCapture(e.pointerId);
   });
-  if(m==='zeros')buildZeros();
-  if(m==='diffs')buildDiffs();
-}
+  canvas.addEventListener('pointermove', e => {
+    if(!isDragging) return;
+    const dx = e.clientX - lastX;
+    // Convert pixel drag to angle change
+    const deltaAngle = dx * 0.025;
+    currentAngle += deltaAngle;
+    spinVelocity = deltaAngle;
+    lastX = e.clientX;
+    snapAndDraw();
+  });
+  canvas.addEventListener('pointerup', () => {
+    isDragging = false;
+    // Snap to nearest slot
+    const nearest = Math.round(currentAngle / SLOT_ANGLE) * SLOT_ANGLE;
+    currentAngle = nearest;
+    snapAndDraw();
+  });
 
-buildLegend();buildPad();
+  function snapAndDraw(){
+    drawWheel();
+    updateInfo();
+  }
+
+  // Touch support via pointer events (already handled above)
+  snapAndDraw();
+})();
+
+// ══════════════════════════════════════════════════════════
+// TRAILING ZEROS
+// ══════════════════════════════════════════════════════════
+(function(){
+  const canvas = document.getElementById('zeros-canvas');
+  const ctx = canvas.getContext('2d');
+
+  let zeroCount = 1;
+  let leadDigit = 3;
+
+  function getN(){
+    return leadDigit * Math.pow(10, zeroCount);
+  }
+
+  function drawZeros(){
+    const n = getN();
+    const sq = n * n;
+    const nStr = String(n);
+    const sqStr = String(sq);
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const W = canvas.width, H = canvas.height;
+
+    // Draw n as digit blocks
+    const blockH = 54, blockW = 40, gap = 5;
+    const nLen = nStr.length;
+    const sqLen = sqStr.length;
+    const totalW = Math.max(nLen, sqLen) * (blockW + gap);
+
+    function drawNumber(digits, y, highlightFrom, highlightColor, label){
+      const L = digits.length;
+      const startX = (W - L*(blockW+gap)) / 2;
+      // Label
+      ctx.font='bold 11px DM Sans';
+      ctx.fillStyle='#9a958e';
+      ctx.textAlign='left';
+      ctx.fillText(label, startX, y - 8);
+
+      digits.forEach((d, i) => {
+        const x = startX + i*(blockW+gap);
+        const isZero = i >= highlightFrom;
+        ctx.fillStyle = isZero ? highlightColor : '#e8eff9';
+        ctx.strokeStyle = isZero ? highlightColor : '#c8d8ee';
+        ctx.lineWidth = 1.5;
+        roundRect(ctx, x, y, blockW, blockH, 6);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.font=`bold ${blockH>40?22:18}px DM Mono`;
+        ctx.fillStyle = isZero ? '#fff' : '#2c5f9e';
+        ctx.textAlign='center';
+        ctx.textBaseline='middle';
+        ctx.fillText(d, x+blockW/2, y+blockH/2);
+      });
+    }
+
+    function roundRect(ctx, x, y, w, h, r){
+      ctx.beginPath();
+      ctx.moveTo(x+r, y);
+      ctx.lineTo(x+w-r, y);
+      ctx.quadraticCurveTo(x+w, y, x+w, y+r);
+      ctx.lineTo(x+w, y+h-r);
+      ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+      ctx.lineTo(x+r, y+h);
+      ctx.quadraticCurveTo(x, y+h, x, y+h-r);
+      ctx.lineTo(x, y+r);
+      ctx.quadraticCurveTo(x, y, x+r, y);
+      ctx.closePath();
+    }
+
+    // n digits
+    const nDigits = nStr.split('');
+    drawNumber(nDigits, 30, nLen - zeroCount, '#e08020', `n = ${n}`);
+
+    // Arrow
+    ctx.font='bold 28px DM Sans';
+    ctx.fillStyle='#9a958e';
+    ctx.textAlign='center';
+    ctx.textBaseline='middle';
+    ctx.fillText('²', W/2 - 20, 30 + blockH + 28);
+    ctx.font='20px DM Sans';
+    ctx.fillText('↓', W/2 + 10, 30 + blockH + 28);
+
+    // Brace showing zero doubling
+    const nZeroStartX = (W - nLen*(blockW+gap))/2 + (nLen-zeroCount)*(blockW+gap);
+    const nZeroEndX = nZeroStartX + zeroCount*(blockW+gap) - gap;
+    const sqZeroCount = zeroCount * 2;
+    const sqDigits = sqStr.split('');
+    const sqLen2 = sqDigits.length;
+    const sqZeroStartX = (W - sqLen2*(blockW+gap))/2 + (sqLen2-sqZeroCount)*(blockW+gap);
+    const sqZeroEndX = sqZeroStartX + sqZeroCount*(blockW+gap) - gap;
+    const sqY = 30 + blockH + 56;
+
+    drawNumber(sqDigits, sqY, sqLen2 - sqZeroCount, '#c0392b', `n² = ${sq.toLocaleString('en-IN')}`);
+
+    // Double-headed arrow between zero groups
+    if(zeroCount > 0){
+      const midY1 = 30 + blockH + 4;
+      const midY2 = sqY - 4;
+      const arrowX1 = nZeroStartX + (nZeroEndX - nZeroStartX)/2;
+      const arrowX2 = sqZeroStartX + (sqZeroEndX - sqZeroStartX)/2;
+
+      ctx.strokeStyle = '#f0a000';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([4,3]);
+      ctx.beginPath();
+      ctx.moveTo(arrowX1, midY1);
+      ctx.lineTo(arrowX1, midY1 + 10);
+      ctx.lineTo(arrowX2, midY1 + 10);
+      ctx.lineTo(arrowX2, midY2 - 10);
+      ctx.lineTo(arrowX2, midY2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Label
+      ctx.font='bold 11px DM Mono';
+      ctx.fillStyle='#b06010';
+      ctx.textAlign='center';
+      ctx.fillText(`×2 zeros`, (arrowX1+arrowX2)/2, midY1 + 22);
+    }
+
+    // Update stats
+    document.getElementById('z-n-val').textContent = n.toLocaleString('en-IN');
+    document.getElementById('z-sq-val').textContent = sq.toLocaleString('en-IN');
+    document.getElementById('z-n-zeros').textContent = `${zeroCount} trailing zero${zeroCount!==1?'s':''}`;
+    document.getElementById('z-sq-zeros').textContent = `${sqZeroCount} trailing zero${sqZeroCount!==1?'s':''}`;
+    document.getElementById('z-rule').textContent = `${zeroCount} zero${zeroCount!==1?'s':''} → ${sqZeroCount} zeros (×2 ✓)`;
+  }
+
+  document.getElementById('z-zeros').addEventListener('input', e => {
+    zeroCount = +e.target.value;
+    document.getElementById('z-zeros-val').textContent = zeroCount;
+    drawZeros();
+  });
+  document.getElementById('z-lead').addEventListener('input', e => {
+    leadDigit = +e.target.value;
+    document.getElementById('z-lead-val').textContent = leadDigit;
+    drawZeros();
+  });
+
+  drawZeros();
+})();
+
+// ══════════════════════════════════════════════════════════
+// GNOMON BUILDER
+// ══════════════════════════════════════════════════════════
+(function(){
+  const canvas = document.getElementById('gnomon-canvas');
+  const ctx = canvas.getContext('2d');
+
+  let N = 4;
+  const MAX_N = 8;
+
+  // Color palette — one per gnomon layer
+  const GNOMON_COLORS = [
+    '#e8eff9', // n=1: pale blue
+    '#b5cfe8',
+    '#7aabda',
+    '#2c5f9e', // n=4
+    '#e08020',
+    '#c0392b',
+    '#1a7a4a',
+    '#7a5cb0',
+  ];
+
+  function resizeCanvas(){
+    const wrap = canvas.parentElement;
+    const size = Math.min(wrap.clientWidth - 32, 260);
+    canvas.width = size;
+    canvas.height = size;
+    drawGnomon();
+  }
+
+  function drawGnomon(){
+    const size = canvas.width;
+    ctx.clearRect(0, 0, size, size);
+
+    const n = N;
+    const cellSize = Math.floor((size - 20) / n);
+    const totalPx = cellSize * n;
+    const offX = (size - totalPx) / 2;
+    const offY = (size - totalPx) / 2;
+
+    // Draw each layer as gnomon
+    // Layer k (1-indexed): cells where max(row, col) == k-1 (0-indexed)
+    for(let row=0; row<n; row++){
+      for(let col=0; col<n; col++){
+        const layer = Math.max(row, col); // 0-indexed layer
+        const color = GNOMON_COLORS[layer] || '#ccc';
+        const isCurrentGnomon = layer === n-1; // outermost = latest added
+
+        const x = offX + col*cellSize;
+        const y = offY + row*cellSize;
+
+        ctx.fillStyle = color;
+        ctx.fillRect(x+1, y+1, cellSize-2, cellSize-2);
+
+        if(isCurrentGnomon){
+          ctx.strokeStyle = '#1a1814';
+          ctx.lineWidth = 2;
+          ctx.strokeRect(x+2, y+2, cellSize-4, cellSize-4);
+        } else {
+          ctx.strokeStyle='rgba(255,255,255,0.4)';
+          ctx.lineWidth=1;
+          ctx.strokeRect(x+1, y+1, cellSize-2, cellSize-2);
+        }
+      }
+    }
+
+    // Label in outermost gnomon cells
+    if(cellSize >= 24){
+      const gnomonSize = 2*n - 1;
+      ctx.font=`bold ${Math.min(cellSize*0.45,14)}px DM Mono`;
+      ctx.fillStyle='#fff';
+      ctx.textAlign='center';
+      ctx.textBaseline='middle';
+      // Label center of top-right cell of gnomon
+      const lx = offX + (n-1)*cellSize + cellSize/2;
+      const ly = offY + cellSize/2;
+      ctx.fillText(gnomonSize, lx, ly);
+    }
+
+    // Update panel
+    const gnomonSize = 2*n-1;
+    const formula = Array.from({length:n},(_,i)=>2*i+1).join(' + ');
+    document.getElementById('g-n-val').textContent = n;
+    document.getElementById('g-sq').textContent = n*n;
+    document.getElementById('g-gnomon').textContent = `${gnomonSize} cells (2×${n}−1)`;
+    document.getElementById('g-formula').textContent = `${formula} = ${n*n} = ${n}²`;
+    document.getElementById('g-sum-check').textContent = `1+3+…+${gnomonSize} = ${n*n} = n²`;
+  }
+
+  document.getElementById('g-n').addEventListener('input', e => {
+    N = +e.target.value;
+    drawGnomon();
+  });
+
+  // Initial size
+  resizeCanvas();
+  new ResizeObserver(resizeCanvas).observe(canvas.parentElement);
+})();
 </script>
 </body>
 </html>
