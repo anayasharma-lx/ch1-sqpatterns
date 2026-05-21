@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Square Number Patterns — Ganita Prakash Grade 8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f5f4f0;--surface:#fff;--surface2:#f0ede8;--border:#d8d4cc;
+  --text:#1a1814;--text2:#5a5650;--text3:#9a958e;
+  --blue:#2c5f9e;--red:#c0392b;--green:#1a7a4a;--orange:#e08020;
+  --u1:#2c5f9e;--u4:#1a7a4a;--u5:#e08020;--u6:#7c3aed;--u9:#c0392b;--u0:#9a958e;
+  --font:'DM Sans',-apple-system,sans-serif;--mono:'DM Mono',ui-monospace,monospace;
+}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5}
+.page{max-width:920px;margin:0 auto;padding:28px 20px}
+.lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:5px}
+.title{font-size:22px;font-weight:700;margin-bottom:5px}
+.subtitle{font-size:14px;color:var(--text2);margin-bottom:22px;max-width:560px;line-height:1.5}
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:22px;margin-bottom:16px}
+
+/* Mode buttons */
+.mode-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.mode-btn{padding:7px 16px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-weight:500;color:var(--text2);background:var(--surface);cursor:pointer;font-family:var(--font);transition:all .12s}
+.mode-btn.active{background:var(--text);color:#fff;border-color:var(--text)}
+.mode-btn:hover:not(.active){border-color:var(--text)}
+
+/* ── UNITS DIGIT ── */
+.impossible-strip{background:#fff5f5;border:1.5px solid #fca5a5;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13.5px;color:#dc2626;font-weight:600}
+
+/* click-a-number pad */
+.num-pad{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:18px}
+.np-cell{aspect-ratio:.9;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;transition:all .15s;user-select:none;gap:3px}
+.np-cell:hover{border-color:var(--text3)}
+.np-cell.selected{border-color:var(--text);box-shadow:0 0 0 2.5px rgba(26,20,16,.12)}
+.np-n{font-family:var(--mono);font-size:20px;font-weight:700;line-height:1}
+.np-sq{font-size:10.5px;color:var(--text3);font-family:var(--mono)}
+.np-dot{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
+
+/* Detail panel */
+.detail-card{background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:16px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-bottom:14px;min-height:80px}
+.dc-n{font-family:var(--mono);font-size:44px;font-weight:700;line-height:1;color:var(--text)}
+.dc-arrow{font-size:24px;color:var(--text3)}
+.dc-sq{font-family:var(--mono);font-size:44px;font-weight:700;line-height:1}
+.dc-facts{flex:1;min-width:180px;font-size:13.5px;color:var(--text2);line-height:1.7}
+.dc-badge{display:inline-block;padding:3px 10px;border-radius:7px;font-size:12px;font-weight:600;border:1.5px solid}
+
+/* Legend */
+.ud-legend{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:4px}
+.ud-chip{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:7px;font-size:12.5px;font-weight:600;border:1.5px solid}
+.ud-dot{width:11px;height:11px;border-radius:50%}
+
+/* ── TRAILING ZEROS ── */
+.rule-card{background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:13px 16px;font-size:14px;font-weight:600;color:#15803d;margin-bottom:16px;text-align:center}
+.zeros-list{display:flex;flex-direction:column;gap:8px}
+.ze-row{display:flex;align-items:center;gap:10px;background:var(--surface);border:1.5px solid var(--border);border-radius:9px;padding:10px 14px;flex-wrap:wrap}
+.ze-n{font-family:var(--mono);font-size:18px;font-weight:700;min-width:72px}
+.ze-z{font-size:12px;color:var(--text3);font-weight:500;min-width:64px}
+.ze-arr{color:var(--text3);font-size:16px}
+.ze-sq{font-family:var(--mono);font-size:18px;font-weight:700;min-width:90px}
+.ze-sz{font-size:12px;color:var(--text2);font-weight:700;min-width:72px}
+.ze-rule{font-size:12.5px;color:var(--green);font-weight:700;margin-left:auto}
+
+/* ── DIFFERENCES ── */
+.diff-n-row{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.diff-n-row label{font-size:13px;font-weight:500;color:var(--text2)}
+.diff-n-row input{flex:1;max-width:200px;height:5px;accent-color:var(--blue);cursor:pointer}
+.diff-n-row .nv{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--blue);min-width:24px}
+.diff-chain{display:flex;flex-wrap:wrap;align-items:center;gap:0;margin-bottom:16px}
+.diff-sq-val{font-family:var(--mono);font-size:17px;font-weight:700;color:var(--blue);padding:6px 8px}
+.diff-gap-wrap{display:flex;flex-direction:column;align-items:center;gap:2px;padding:0 4px}
+.diff-line{height:2px;background:var(--border);width:48px}
+.diff-odd{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--red)}
+.insight{background:#fff8f0;border:1.5px solid #f0d8c0;border-radius:10px;padding:13px 18px;font-size:13.5px;color:#6b4400;line-height:1.65}
+.insight strong{color:#a05000}
+.insight .eq{font-family:var(--mono);font-size:13px;display:block;margin:2px 0}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="lbl">Chapter 1 · A Square and A Cube</div>
+  <div class="title">Square Number Patterns</div>
+  <div class="subtitle">Perfect squares follow strict rules. Click a number to explore its units digit. Switch modes to see how trailing zeros and differences between squares behave.</div>
+
+  <div class="mode-row">
+    <button class="mode-btn active" onclick="setMode('units')">Units digit</button>
+    <button class="mode-btn" onclick="setMode('zeros')">Trailing zeros</button>
+    <button class="mode-btn" onclick="setMode('diffs')">Differences</button>
+  </div>
+
+  <!-- UNITS DIGIT -->
+  <div id="mUnits">
+    <div class="card">
+      <div class="impossible-strip">
+        If a number ends in <strong>2, 3, 7 or 8</strong> — it can never be a perfect square. Rule it out instantly without any calculation.
+      </div>
+      <div class="ud-legend" id="udLegend"></div>
+      <div style="margin-bottom:14px"></div>
+      <div class="detail-card" id="detailCard">
+        <div class="dc-n" id="dcN">—</div>
+        <div class="dc-arrow">→</div>
+        <div class="dc-sq" id="dcSq">—</div>
+        <div class="dc-facts" id="dcFacts"><span style="color:var(--text3)">Click any number below.</span></div>
+      </div>
+      <div class="num-pad" id="numPad"></div>
+    </div>
+  </div>
+
+  <!-- TRAILING ZEROS -->
+  <div id="mZeros" style="display:none">
+    <div class="card">
+      <div class="rule-card">If n has k trailing zeros, then n² has 2k trailing zeros — always exactly double.</div>
+      <div class="zeros-list" id="zerosList"></div>
+      <div class="insight" style="margin-top:14px">
+        <strong>Consequence:</strong> A perfect square can only have 0, 2, 4, 6… (an even number of) trailing zeros. Any number ending in exactly 1, 3, or 5 zeros is definitely NOT a perfect square.
+      </div>
+    </div>
+  </div>
+
+  <!-- DIFFERENCES -->
+  <div id="mDiffs" style="display:none">
+    <div class="card">
+      <div class="diff-n-row">
+        <label>Show first</label>
+        <input type="range" id="diffN" min="2" max="16" value="8" oninput="buildDiffs()">
+        <span class="nv" id="diffNv">8</span>
+        <label>squares</label>
+      </div>
+      <div class="diff-chain" id="diffChain"></div>
+      <div class="insight">
+        <strong>The gap between consecutive squares is always an odd number.</strong>
+        <span class="eq">(n+1)² − n² = 2n+1</span>
+        This is the (n+1)th odd number — which is exactly why adding consecutive odd numbers builds squares!
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const UD_COLORS={0:'#9a958e',1:'#2c5f9e',4:'#1a7a4a',5:'#e08020',6:'#7c3aed',9:'#c0392b'};
+
+// Legend
+function buildLegend(){
+  const el=document.getElementById('udLegend');
+  el.innerHTML='';
+  Object.entries(UD_COLORS).forEach(([d,c])=>{
+    const div=document.createElement('div');
+    div.className='ud-chip';
+    div.style.cssText=`border-color:${c}55;background:${c}0d;color:${c}`;
+    div.innerHTML=`<div class="ud-dot" style="background:${c}"></div>ends in ${d}`;
+    el.appendChild(div);
+  });
+  const bad=document.createElement('div');
+  bad.className='ud-chip';
+  bad.style.cssText='border-color:#fca5a5;background:#fff5f5;color:#dc2626';
+  bad.innerHTML=`<div class="ud-dot" style="background:#fca5a5;border:1.5px dashed #dc2626"></div>2, 3, 7, 8 — impossible`;
+  el.appendChild(bad);
+}
+
+// Number pad 1-25
+function buildPad(){
+  const pad=document.getElementById('numPad');
+  pad.innerHTML='';
+  for(let n=1;n<=25;n++){
+    const sq=n*n, u=sq%10;
+    const c=UD_COLORS[u]||'#888';
+    const cell=document.createElement('div');
+    cell.className='np-cell';
+    cell.id='np'+n;
+    cell.innerHTML=`<span class="np-n">${n}</span><span class="np-sq">${n}²=${sq}</span><div class="np-dot" style="background:${c}">${u}</div>`;
+    cell.onclick=()=>selectN(n);
+    pad.appendChild(cell);
+  }
+}
+
+function selectN(n){
+  document.querySelectorAll('.np-cell').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('np'+n)?.classList.add('selected');
+  const sq=n*n, u=sq%10;
+  const c=UD_COLORS[u]||'#888';
+  document.getElementById('dcN').textContent=n;
+  document.getElementById('dcSq').textContent=sq;
+  document.getElementById('dcSq').style.color=c;
+  const isOdd=n%2===1;
+  document.getElementById('dcFacts').innerHTML=
+    `<strong>${n}² = ${sq}</strong> — ends in <strong style="color:${c}">${u}</strong><br>
+    ${isOdd?`${n} is odd → ${n}² is odd`:`${n} is even → ${n}² is even`}<br>
+    <span class="dc-badge" style="background:${c}11;border-color:${c}55;color:${c}">units digit: ${n%10} → squares to ${u}</span>`;
+}
+
+// Trailing zeros
+function buildZeros(){
+  const items=[10,20,100,200,300,1000,40,9000];
+  const list=document.getElementById('zerosList');
+  list.innerHTML='';
+  items.forEach(n=>{
+    const sq=n*n;
+    const zn=(n.toString().match(/0+$/)||[''])[0].length;
+    const zsq=(sq.toString().match(/0+$/)||[''])[0].length;
+    const div=document.createElement('div');
+    div.className='ze-row';
+    div.innerHTML=`<span class="ze-n">${n}</span><span class="ze-z">(${zn} zero${zn!==1?'s':''})</span><span class="ze-arr">→</span><span class="ze-sq">${sq.toLocaleString('en-IN')}</span><span class="ze-sz">(${zsq} zeros)</span><span class="ze-rule">${zn}×2=${zsq} ✓</span>`;
+    list.appendChild(div);
+  });
+}
+
+// Differences
+function buildDiffs(){
+  const nMax=parseInt(document.getElementById('diffN').value);
+  document.getElementById('diffNv').textContent=nMax;
+  const chain=document.getElementById('diffChain');
+  chain.innerHTML='';
+  for(let n=1;n<=nMax;n++){
+    const sq=n*n;
+    const v=document.createElement('span');
+    v.className='diff-sq-val';
+    v.textContent=sq;
+    chain.appendChild(v);
+    if(n<nMax){
+      const diff=(n+1)*(n+1)-sq;
+      const gw=document.createElement('div');
+      gw.className='diff-gap-wrap';
+      gw.innerHTML=`<div class="diff-line"></div><div class="diff-odd">+${diff}</div>`;
+      chain.appendChild(gw);
+    }
+  }
+}
+
+function setMode(m){
+  ['units','zeros','diffs'].forEach((k,i)=>{
+    document.querySelectorAll('.mode-btn')[i].classList.toggle('active',k===m);
+    document.getElementById('m'+k.charAt(0).toUpperCase()+k.slice(1)).style.display=k===m?'block':'none';
+  });
+  if(m==='zeros')buildZeros();
+  if(m==='diffs')buildDiffs();
+}
+
+buildLegend();buildPad();
+</script>
+</body>
+</html>
