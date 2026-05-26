@@ -9,63 +9,42 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --cream:#f8f4ee;
-  --cream2:#f0ebe0;
-  --cream3:#e6dece;
-  --ink:#1a1610;
-  --ink2:#4a4030;
-  --ink3:#8a8070;
-  --rule:#d8d0c0;
-  --rule2:#c8c0b0;
-  --terracotta:#c24e2a;
-  --terracotta-dim:rgba(194,78,42,0.1);
-  --cobalt:#2a52a8;
-  --cobalt-dim:rgba(42,82,168,0.1);
-  --forest:#2a6040;
-  --forest-dim:rgba(42,96,64,0.1);
-  --ochre:#c89020;
-  --ochre-dim:rgba(200,144,32,0.12);
-  --plum:#7a3a78;
-  --plum-dim:rgba(122,58,120,0.1);
-  --slate:#3a5068;
-  --rose:#b04060;
-  --mono:'Space Mono',monospace;
-  --serif:'Instrument Serif',Georgia,serif;
-  --sans:'Syne',sans-serif;
+  --cream:#f8f4ee;--cream2:#f0ebe0;--cream3:#e6dece;
+  --ink:#1a1610;--ink2:#4a4030;--ink3:#6a6050;
+  --rule:#d8d0c0;--rule2:#c8c0b0;
+  --terracotta:#c24e2a;--terracotta-dim:rgba(194,78,42,0.1);
+  --cobalt:#2a52a8;--cobalt-dim:rgba(42,82,168,0.1);
+  --forest:#2a6040;--forest-dim:rgba(42,96,64,0.1);
+  --ochre:#c89020;--ochre-dim:rgba(200,144,32,0.12);
+  --mono:'Space Mono',monospace;--serif:'Instrument Serif',Georgia,serif;--sans:'Syne',sans-serif;
 }
-html,body{width:100%;height:100%;overflow:hidden;background:var(--cream);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
 
-/* ── LAYOUT ── */
+/* ── BASE: desktop fixed layout ── */
+html,body{width:100%;height:100%;overflow:hidden;background:var(--cream);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
 #app{position:fixed;inset:0;display:grid;grid-template-rows:auto 1fr;overflow:hidden}
 
 /* ── HEADER ── */
 #header{
   background:var(--cream);border-bottom:2px solid var(--rule2);
-  padding:16px 28px 12px;flex-shrink:0;
-  display:grid;grid-template-columns:1fr auto;align-items:end;gap:20px;
+  padding:14px 24px 0;flex-shrink:0;
+  display:flex;flex-wrap:wrap;align-items:flex-end;gap:0;
 }
-.hdr-left{}
+.hdr-left{padding-bottom:12px;flex:1;min-width:180px}
 .hdr-eyebrow{
-  font-family:var(--mono);font-size:9px;letter-spacing:2.5px;text-transform:uppercase;
+  font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;
   color:var(--ink3);margin-bottom:6px;display:flex;align-items:center;gap:8px;
 }
-.hdr-eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--terracotta)}
-h1{
-  font-family:var(--serif);font-size:26px;font-weight:400;line-height:1.1;
-  color:var(--ink);letter-spacing:-.2px;
-}
+.hdr-eyebrow::before{content:'';display:block;width:18px;height:1px;background:var(--terracotta)}
+h1{font-family:var(--serif);font-size:24px;font-weight:400;line-height:1.1;color:var(--ink)}
 h1 em{font-style:italic;color:var(--terracotta)}
-.hdr-sub{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-top:5px;letter-spacing:.3px}
 
-/* ── TAB BAR ── */
-.tab-bar{
-  display:flex;gap:0;border-bottom:2px solid var(--rule2);
-}
+/* tab bar lives in header row */
+.tab-bar{display:flex;gap:0;border-bottom:none;align-self:stretch;align-items:flex-end}
 .main-tab{
-  padding:10px 22px;border:none;background:transparent;
-  font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
-  color:var(--ink3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;
-  transition:all .18s;
+  padding:10px 18px;border:none;background:transparent;
+  font-family:var(--mono);font-size:11px;letter-spacing:1.2px;text-transform:uppercase;
+  color:var(--ink3);cursor:pointer;border-bottom:2px solid transparent;
+  transition:all .18s;white-space:nowrap;
 }
 .main-tab:hover{color:var(--ink2)}
 .main-tab.on{color:var(--ink);border-bottom-color:var(--terracotta)}
@@ -81,218 +60,163 @@ h1 em{font-style:italic;color:var(--terracotta)}
 }
 
 /* ── SIDE COLUMN ── */
-#side-col{
-  display:flex;flex-direction:column;overflow:hidden;background:var(--cream);
-}
-.side-inner{flex:1;overflow-y:auto;padding:20px 20px 24px;scrollbar-width:thin;scrollbar-color:var(--rule) transparent}
+#side-col{display:flex;flex-direction:column;overflow:hidden;background:var(--cream)}
+.side-inner{flex:1;overflow-y:auto;padding:18px 18px 22px;scrollbar-width:thin;scrollbar-color:var(--rule) transparent}
 
-/* Concept block */
-.concept-block{
-  border-left:3px solid var(--terracotta);
-  padding:12px 14px;margin-bottom:18px;
-  background:var(--ochre-dim);border-radius:0 6px 6px 0;
-}
+/* ── CONCEPT BLOCK ── */
+.concept-block{border-left:3px solid var(--terracotta);padding:11px 13px;margin-bottom:16px;background:var(--ochre-dim);border-radius:0 6px 6px 0}
 .concept-block p{font-family:var(--serif);font-style:italic;font-size:13px;color:var(--ink2);line-height:1.75}
-.concept-block strong{font-style:normal;font-family:var(--sans);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--terracotta)}
+.concept-block strong{font-style:normal;font-family:var(--sans);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--terracotta)}
 
 /* n-slider */
-.n-ctrl{display:flex;align-items:center;gap:10px;margin-bottom:18px;padding:10px 12px;background:var(--cream2);border:1px solid var(--rule);border-radius:6px}
-.n-ctrl-label{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);white-space:nowrap}
+.n-ctrl{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding:9px 12px;background:var(--cream2);border:1px solid var(--rule);border-radius:6px}
+.n-ctrl-label{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);white-space:nowrap}
 .n-ctrl input[type=range]{flex:1;height:2px;-webkit-appearance:none;background:var(--rule2);border-radius:1px;outline:none;cursor:pointer}
-.n-ctrl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--terracotta);cursor:pointer;box-shadow:0 1px 4px rgba(194,78,42,0.3)}
-.n-val{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--terracotta);min-width:20px;text-align:right}
+.n-ctrl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--terracotta);cursor:pointer;box-shadow:0 1px 4px rgba(194,78,42,0.35)}
+.n-val{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--terracotta);min-width:22px;text-align:right}
 
 /* Stat cards */
-.stat-row{display:grid;gap:8px;margin-bottom:14px}
+.stat-row{display:grid;gap:8px;margin-bottom:13px}
 .stat-row.cols2{grid-template-columns:1fr 1fr}
-.stat-card{
-  padding:10px 12px;border-radius:6px;border:1px solid var(--rule);
-  background:#fff;
-}
-.sc-lbl{font-family:var(--mono);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:4px}
+.stat-card{padding:10px 12px;border-radius:6px;border:1px solid var(--rule);background:#fff}
+.sc-lbl{font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:4px}
 .sc-val{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--ink)}
 .sc-val.terra{color:var(--terracotta)}
 .sc-val.cobalt{color:var(--cobalt)}
 .sc-val.forest{color:var(--forest)}
-.sc-sub{font-family:var(--mono);font-size:9px;color:var(--ink3);margin-top:2px}
+.sc-sub{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-top:2px}
 
-/* Formula box */
-.formula{
-  padding:10px 14px;border-radius:6px;
-  background:var(--cobalt-dim);border:1px solid rgba(42,82,168,0.2);
-  font-family:var(--mono);font-size:12px;font-weight:700;
-  color:var(--cobalt);text-align:center;line-height:1.6;margin-bottom:14px;
-}
+/* Formula */
+.formula{padding:10px 14px;border-radius:6px;background:var(--cobalt-dim);border:1px solid rgba(42,82,168,0.2);font-family:var(--mono);font-size:12px;font-weight:700;color:var(--cobalt);text-align:center;line-height:1.6;margin-bottom:13px}
 
 /* Layer legend */
 .layer-legend{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
-.ll-item{
-  display:flex;align-items:center;gap:5px;
-  padding:4px 9px;border-radius:4px;border:1px solid var(--rule);
-  background:var(--cream2);cursor:pointer;transition:all .14s;
-}
+.ll-item{display:flex;align-items:center;gap:5px;padding:5px 9px;border-radius:4px;border:1px solid var(--rule);background:var(--cream2);cursor:pointer;transition:all .14s}
 .ll-item:hover{border-color:var(--rule2)}
 .ll-item.on{border-width:1.5px}
 .ll-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
 .ll-num{font-family:var(--mono);font-size:11px;font-weight:700}
 
-/* ── UNITS DIGIT MAP ── */
-.units-wrap{
-  position:relative;padding:20px;
-  display:flex;flex-direction:column;align-items:center;
-  width:100%;height:100%;
-}
-.units-diagram{
-  display:flex;align-items:flex-start;gap:0;
-  width:100%;max-width:480px;
-}
+/* Units diagram */
+.units-wrap{position:relative;padding:20px;display:flex;flex-direction:column;align-items:center;width:100%;height:100%;overflow-y:auto}
+.units-diagram{display:flex;align-items:flex-start;gap:0;width:100%;max-width:460px}
 .ud-col{display:flex;flex-direction:column;gap:5px;align-items:center;flex-shrink:0}
-.ud-col-label{font-family:var(--mono);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:6px;text-align:center}
+.ud-col-label{font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:6px;text-align:center}
 .digit-node{
-  width:40px;height:40px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
+  width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;
   font-family:var(--mono);font-size:16px;font-weight:700;
   border:1.5px solid var(--rule);background:#fff;color:var(--ink2);
-  cursor:pointer;transition:all .18s;position:relative;
-  user-select:none;
+  cursor:pointer;transition:all .18s;position:relative;user-select:none;
 }
 .digit-node:hover{border-color:var(--rule2);color:var(--ink)}
-.digit-node.selected{background:var(--terracotta);border-color:var(--terracotta);color:#fff;transform:scale(1.12);box-shadow:0 2px 10px rgba(194,78,42,0.3)}
+.digit-node.selected{background:var(--terracotta);border-color:var(--terracotta);color:#fff;transform:scale(1.1);box-shadow:0 2px 10px rgba(194,78,42,0.3)}
 .digit-node.partner{background:var(--cobalt-dim);border-color:var(--cobalt);color:var(--cobalt)}
-.digit-node.lit{background:var(--forest);border-color:var(--forest);color:#fff;transform:scale(1.12);box-shadow:0 2px 10px rgba(42,96,64,0.3)}
+.digit-node.lit{background:var(--forest);border-color:var(--forest);color:#fff;transform:scale(1.1);box-shadow:0 2px 10px rgba(42,96,64,0.3)}
 .digit-node.impossible{background:var(--cream3);border-color:var(--rule);color:var(--ink3)}
-.impossible-x{
-  position:absolute;top:-3px;right:-3px;width:14px;height:14px;border-radius:50%;
-  background:var(--terracotta);color:#fff;font-size:8px;font-weight:700;
-  display:flex;align-items:center;justify-content:center;
-}
-.ud-arrows{flex:1;position:relative;align-self:stretch;min-width:60px}
+.impossible-x{position:absolute;top:-3px;right:-3px;width:14px;height:14px;border-radius:50%;background:var(--terracotta);color:#fff;font-size:8px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.ud-arrows{flex:1;position:relative;align-self:stretch;min-width:56px}
 #ud-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
 
-/* Verdict in units tab */
-.units-verdict{
-  width:100%;max-width:480px;margin-top:14px;
-  padding:12px 16px;border-radius:8px;border:1.5px solid;text-align:center;transition:all .3s;
-}
+.units-verdict{width:100%;max-width:460px;margin-top:12px;padding:12px 16px;border-radius:8px;border:1.5px solid;text-align:center;transition:all .3s}
 .units-verdict.none{background:var(--cream2);border-color:var(--rule);color:var(--ink3)}
 .units-verdict.possible{background:var(--forest-dim);border-color:rgba(42,96,64,0.3)}
 .units-verdict.impossible-v{background:var(--terracotta-dim);border-color:rgba(194,78,42,0.3)}
-.uv-main{font-family:var(--mono);font-size:16px;font-weight:700}
+.uv-main{font-family:var(--mono);font-size:15px;font-weight:700}
 .none .uv-main{color:var(--ink3)}
 .possible .uv-main{color:var(--forest)}
 .impossible-v .uv-main{color:var(--terracotta)}
-.uv-sub{font-family:var(--mono);font-size:9px;color:var(--ink3);margin-top:4px}
+.uv-sub{font-family:var(--mono);font-size:11px;color:var(--ink3);margin-top:4px}
 
-/* ── ZEROS TAB ── */
-.zeros-outer{padding:24px;width:100%;overflow-y:auto}
-.eq-visual{
-  background:#fff;border:1px solid var(--rule);border-radius:10px;
-  padding:24px;margin-bottom:18px;
-}
+/* Zeros */
+#zeros-outer{padding:20px 22px;width:100%;height:100%;overflow-y:auto}
+.eq-visual{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:20px;margin-bottom:16px}
 .eq-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;justify-content:center}
 .eq-lbl{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--ink3)}
 .eq-val{font-family:var(--mono);font-size:22px;font-weight:700}
 .eq-times{font-family:var(--mono);font-size:18px;color:var(--ink3)}
-.pills{display:inline-flex;gap:3px;align-items:center}
-.pill{
-  width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;
-  font-family:var(--mono);font-size:14px;font-weight:700;
-}
+.pills{display:inline-flex;gap:3px;align-items:center;flex-wrap:wrap}
+.pill{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;font-weight:700}
 .pill.digit{background:var(--cobalt-dim);border:1.5px solid rgba(42,82,168,0.3);color:var(--cobalt)}
 .pill.zero-n{background:var(--ochre-dim);border:1.5px solid rgba(200,144,32,0.4);color:var(--ochre)}
 .pill.zero-sq{background:var(--terracotta-dim);border:1.5px solid rgba(194,78,42,0.3);color:var(--terracotta)}
-.eq-divider{
-  display:flex;align-items:center;gap:12px;margin:12px 0;
-  font-family:var(--mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;
-  color:var(--ink3);
-}
+.eq-divider{display:flex;align-items:center;gap:12px;margin:12px 0;font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3)}
 .eq-divider::before,.eq-divider::after{content:'';flex:1;height:1px;background:var(--rule)}
 
 /* insight */
-.insight{
-  padding:12px 14px;border-radius:6px;background:var(--ochre-dim);
-  border-left:3px solid var(--ochre);
-}
-.insight p{font-family:var(--serif);font-style:italic;font-size:12.5px;color:var(--ink2);line-height:1.7}
-.insight strong{font-style:normal;font-family:var(--sans);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ochre)}
+.insight{padding:11px 13px;border-radius:6px;background:var(--ochre-dim);border-left:3px solid var(--ochre)}
+.insight p{font-family:var(--serif);font-style:italic;font-size:13px;color:var(--ink2);line-height:1.7}
+.insight strong{font-style:normal;font-family:var(--sans);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ochre)}
 
-/* n-slider duplicate for zeros */
-.z-ctrl-row{display:flex;gap:10px;margin-bottom:14px;align-items:center}
-.z-ctrl-lbl{font-family:var(--mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);min-width:72px}
-.z-ctrl-row input[type=range]{flex:1;height:2px;-webkit-appearance:none;background:var(--rule2);outline:none;cursor:pointer;border-radius:1px}
-.z-ctrl-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;cursor:pointer}
-.z-ctrl-val{font-family:var(--mono);font-size:16px;font-weight:700;min-width:20px;text-align:right}
-
-/* symmetry display in side panel */
-.sym-list{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
-.sym-row{
-  display:flex;align-items:center;gap:7px;
-  padding:7px 10px;border-radius:5px;border:1px solid var(--rule);
-  background:var(--cream2);font-family:var(--mono);font-size:11px;
-  transition:all .15s;
-}
+/* sym/imp */
+.sym-list{display:flex;flex-direction:column;gap:5px;margin-bottom:13px}
+.sym-row{display:flex;align-items:center;gap:7px;padding:8px 10px;border-radius:5px;border:1px solid var(--rule);background:var(--cream2);font-family:var(--mono);font-size:12px;transition:all .15s}
 .sym-row.on{background:var(--cobalt-dim);border-color:rgba(42,82,168,0.3)}
-.sym-n{
-  width:24px;height:24px;border-radius:50%;background:#fff;border:1px solid var(--rule);
-  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;
-}
+.sym-n{width:26px;height:26px;border-radius:50%;background:#fff;border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px}
 .sym-n.on{background:var(--cobalt);border-color:var(--cobalt);color:#fff}
-.sym-arr{color:var(--ink3);font-size:10px}
+.sym-arr{color:var(--ink3);font-size:11px}
 .sym-res{font-weight:700;color:var(--terracotta)}
+.imp-row{display:flex;gap:8px;align-items:center;padding:10px 12px;background:var(--terracotta-dim);border:1px solid rgba(194,78,42,0.25);border-radius:6px;margin-bottom:12px;flex-wrap:wrap}
+.imp-num{width:30px;height:30px;border-radius:50%;background:var(--terracotta);color:#fff;font-family:var(--mono);font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.imp-text{font-family:var(--mono);font-size:11px;color:var(--terracotta)}
 
-/* impossible list */
-.imp-row{
-  display:flex;gap:8px;align-items:center;padding:10px 12px;
-  background:var(--terracotta-dim);border:1px solid rgba(194,78,42,0.25);
-  border-radius:6px;margin-bottom:12px;
-}
-.imp-num{
-  width:28px;height:28px;border-radius:50%;background:var(--terracotta);
-  color:#fff;font-family:var(--mono);font-size:13px;font-weight:700;
-  display:flex;align-items:center;justify-content:center;
-}
-.imp-text{font-family:var(--mono);font-size:10px;color:var(--terracotta);letter-spacing:.3px}
-
-/* scrollbar */
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--rule2);border-radius:2px}
+
+/* ══ MOBILE / TABLET ══════════════════════════════ */
+@media (max-width: 768px) {
+  html, body { overflow: auto; height: auto; }
+  #app { position: static; display: flex; flex-direction: column; min-height: 100dvh; }
+  #header { padding: 12px 16px 0; gap: 0; }
+  h1 { font-size: 20px; }
+  .tab-bar { width: 100%; border-top: 1px solid var(--rule); margin-top: 10px; }
+  .main-tab { padding: 9px 14px; font-size: 10px; flex: 1; text-align: center; }
+  #main { grid-template-columns: 1fr; overflow: visible; }
+  #canvas-col {
+    height: 60vw; min-height: 260px; max-height: 420px;
+    border-right: none; border-bottom: 1px solid var(--rule);
+    flex-shrink: 0;
+  }
+  #side-col { overflow: visible; }
+  .side-inner { overflow: visible; max-height: none; padding: 14px 14px 20px; }
+  .units-wrap { height: auto; min-height: 50vw; }
+  #zeros-outer { height: auto; padding: 14px 16px; }
+  .stat-row.cols2 { grid-template-columns: 1fr 1fr; }
+  .n-val { font-size: 20px; }
+  .digit-node { width: 36px; height: 36px; font-size: 15px; }
+  .ud-col-label { font-size: 10px; }
+}
+@media (max-width: 480px) {
+  h1 { font-size: 18px; }
+  .main-tab { font-size: 9px; padding: 8px 10px; letter-spacing: .8px; }
+  .hdr-eyebrow { font-size: 10px; }
+  .concept-block p { font-size: 12px; }
+  .digit-node { width: 32px; height: 32px; font-size: 13px; }
+  .ud-arrows { min-width: 40px; }
+}
 </style>
 </head>
 <body>
 <div id="app">
-
-  <!-- HEADER -->
   <div id="header">
     <div class="hdr-left">
       <div class="hdr-eyebrow">Chapter 1 &nbsp;·&nbsp; Squares & Cubes</div>
       <h1>Square Number <em>Patterns</em></h1>
     </div>
-    <div class="tab-bar" style="align-self:stretch;border-bottom:none">
+    <div class="tab-bar">
       <button class="main-tab on" data-mt="gnomon">Gnomon Builder</button>
       <button class="main-tab" data-mt="units">Units Digit Map</button>
       <button class="main-tab" data-mt="zeros">Trailing Zeros</button>
     </div>
   </div>
 
-  <!-- MAIN -->
   <div id="main">
-
-    <!-- CANVAS COLUMN -->
     <div id="canvas-col">
-      <!-- Gnomon canvas -->
       <canvas id="gnomon-canvas" style="display:block"></canvas>
 
-      <!-- Units diagram -->
       <div class="units-wrap" id="units-wrap" style="display:none">
         <div class="units-diagram" id="units-diagram">
-          <div class="ud-col" id="in-col">
-            <div class="ud-col-label">n ends in</div>
-          </div>
-          <div class="ud-arrows" id="ud-arrows">
-            <svg id="ud-svg"></svg>
-          </div>
-          <div class="ud-col" id="out-col">
-            <div class="ud-col-label">n² ends in</div>
-          </div>
+          <div class="ud-col" id="in-col"><div class="ud-col-label">n ends in</div></div>
+          <div class="ud-arrows" id="ud-arrows"><svg id="ud-svg"></svg></div>
+          <div class="ud-col" id="out-col"><div class="ud-col-label">n² ends in</div></div>
         </div>
         <div class="units-verdict none" id="units-verdict">
           <div class="uv-main" id="uv-main">Click any digit →</div>
@@ -300,47 +224,43 @@ h1 em{font-style:italic;color:var(--terracotta)}
         </div>
       </div>
 
-      <!-- Zeros interactive factory -->
-      <div id="zeros-outer" style="display:none;width:100%;height:100%;overflow-y:auto;padding:20px 24px">
-        <div style="display:flex;flex-direction:column;gap:18px">
-        <div style="display:flex;align-items:center;gap:12px">
-          <span style="font-family:var(--mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3)">Lead digit a =</span>
-          <div style="display:flex;gap:5px" id="z-digit-btns"></div>
-        </div>
-        <div>
-          <div style="font-family:var(--mono);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px">n</div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-            <div id="z-n-pills" style="display:flex;gap:3px;flex-wrap:wrap;align-items:center;min-height:36px"></div>
-            <button id="z-add-zero" title="Add a zero">+0</button>
-            <button id="z-rm-zero" title="Remove a zero">−0</button>
+      <div id="zeros-outer" style="display:none">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <span style="font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3)">Lead digit a =</span>
+            <div style="display:flex;gap:4px;flex-wrap:wrap" id="z-digit-btns"></div>
           </div>
-        </div>
-        <div style="text-align:center;font-family:var(--mono);font-size:10px;color:var(--ink3);letter-spacing:1px">↓ &nbsp;squaring&nbsp; ↓</div>
-        <div>
-          <div style="font-family:var(--mono);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px">n²</div>
-          <div id="z-sq-pills" style="display:flex;gap:3px;flex-wrap:wrap;align-items:center;min-height:36px"></div>
-        </div>
-        <div id="z-verdict" style="padding:12px 14px;border-radius:6px;border:1px solid var(--rule);background:#fff">
-          <div id="z-verdict-main" style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--ink)">—</div>
-          <div id="z-verdict-sub" style="font-family:var(--mono);font-size:9px;color:var(--ink3);margin-top:4px">—</div>
-        </div>
-        <div>
-          <div style="font-family:var(--mono);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px">Quick test — odd zero count?</div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap" id="z-test-cases"></div>
-        </div>
+          <div>
+            <div style="font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px">n</div>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              <div id="z-n-pills" style="display:flex;gap:3px;flex-wrap:wrap;align-items:center;min-height:36px"></div>
+              <button id="z-add-zero">+0</button>
+              <button id="z-rm-zero">−0</button>
+            </div>
+          </div>
+          <div style="text-align:center;font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:1px">↓ &nbsp;squaring&nbsp; ↓</div>
+          <div>
+            <div style="font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px">n²</div>
+            <div id="z-sq-pills" style="display:flex;gap:3px;flex-wrap:wrap;align-items:center;min-height:36px"></div>
+          </div>
+          <div id="z-verdict" style="padding:12px 14px;border-radius:6px;border:1px solid var(--rule);background:#fff">
+            <div id="z-verdict-main" style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--ink)">—</div>
+            <div id="z-verdict-sub" style="font-family:var(--mono);font-size:11px;color:var(--ink3);margin-top:4px">—</div>
+          </div>
+          <div>
+            <div style="font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px">Quick test — odd zero count?</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap" id="z-test-cases"></div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- SIDE COLUMN -->
     <div id="side-col">
-      <div class="side-inner" id="side-inner">
-
+      <div class="side-inner">
         <!-- GNOMON SIDE -->
         <div id="side-gnomon">
           <div class="concept-block">
-            <p><strong>The key insight</strong><br>
-            Each square n² is built from n L-shaped rings called gnomons. Ring k has 2k−1 cells. The sum 1+3+5+…+(2n−1) = n². Click any ring to isolate it.</p>
+            <p><strong>The key insight</strong><br>Each square n² is built from n L-shaped rings called gnomons. Ring k has 2k−1 cells. The sum 1+3+5+…+(2n−1) = n². Click any ring to isolate it.</p>
           </div>
           <div class="n-ctrl">
             <span class="n-ctrl-label">n</span>
@@ -352,38 +272,34 @@ h1 em{font-style:italic;color:var(--terracotta)}
             <div class="stat-card"><div class="sc-lbl">Outermost gnomon</div><div class="sc-val cobalt" id="g-gnomon">7</div><div class="sc-sub" id="g-gnomon-sub">= 2×4−1</div></div>
           </div>
           <div class="formula" id="g-formula">1 + 3 + 5 + 7 = 16 = 4²</div>
-          <div style="font-family:var(--mono);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px">Click a ring to isolate it</div>
+          <div style="font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px">Click a ring to isolate it</div>
           <div class="layer-legend" id="layer-legend"></div>
           <div class="insight" style="margin-top:12px">
-            <p><strong>The algebraic reason</strong><br>
-            (n+1)² = n² + (2n+1). Each new square adds the next odd number. So building squares by adding odd rings is the geometric proof of this identity.</p>
+            <p><strong>The algebraic reason</strong><br>(n+1)² = n² + (2n+1). Each new square adds the next odd number. So building squares by adding odd rings is the geometric proof of this identity.</p>
           </div>
         </div>
 
         <!-- UNITS SIDE -->
         <div id="side-units" style="display:none">
           <div class="concept-block">
-            <p><strong>Only 6 endings possible</strong><br>
-            Digits 2, 3, 7, 8 <em>never</em> appear as the last digit of any perfect square. Click a digit to see its mapping. Pairs like 1 & 9 always give the same output.</p>
+            <p><strong>Only 6 endings possible</strong><br>Digits 2, 3, 7, 8 <em>never</em> appear as the last digit of any perfect square. Click a digit to see its mapping.</p>
           </div>
           <div class="imp-row">
             <div class="imp-num">2</div><div class="imp-num">3</div>
             <div class="imp-num">7</div><div class="imp-num">8</div>
-            <div class="imp-text">impossible endings — instantly eliminates 40% of numbers</div>
+            <span class="imp-text">impossible endings — rules out 40% instantly</span>
           </div>
-          <div style="font-family:var(--mono);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px">Symmetry pairs: d and (10−d) map identically</div>
+          <div style="font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px">Symmetry: d and (10−d) map identically</div>
           <div class="sym-list" id="sym-list"></div>
           <div class="insight">
-            <p><strong>The shortcut</strong><br>
-            If a number ends in 2, 3, 7 or 8 — it <em>cannot</em> be a perfect square. No calculation needed. This is the fastest way to rule out non-squares.</p>
+            <p><strong>The shortcut</strong><br>If a number ends in 2, 3, 7 or 8 — it <em>cannot</em> be a perfect square. No calculation needed.</p>
           </div>
         </div>
 
         <!-- ZEROS SIDE -->
         <div id="side-zeros" style="display:none">
           <div class="concept-block">
-            <p><strong>Zeros always double when squaring</strong><br>
-            Press <strong>+0</strong> to add a zero to n and watch n² gain two zeros instantly. Perfect squares can only have an <em>even</em> trailing zero count.</p>
+            <p><strong>Zeros always double when squaring</strong><br>Press <strong>+0</strong> to add a zero to n and watch n² gain two zeros instantly.</p>
           </div>
           <div class="stat-row cols2">
             <div class="stat-card"><div class="sc-lbl">Zeros in n</div><div class="sc-val" id="z-n-zeros" style="color:var(--ochre)">0</div></div>
@@ -395,26 +311,19 @@ h1 em{font-style:italic;color:var(--terracotta)}
           </div>
           <div class="formula" id="z-formula">3 = 3×10⁰ → 9 = 9×10⁰</div>
           <div class="insight" style="margin-top:8px">
-            <p><strong>The rule</strong><br>
-            n = a×10ᵏ → n² = a²×10²ᵏ. The exponent k doubles. So 1 zero → 2 zeros, 3 zeros → 6 zeros. Odd zero counts are impossible in perfect squares.</p>
+            <p><strong>The rule</strong><br>n = a×10ᵏ → n² = a²×10²ᵏ. The exponent k doubles. Odd zero counts are impossible in perfect squares.</p>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 </div>
 
 <script>
-// ═══════════════════════════════════════════════
-// GNOMON COLORS
-// ═══════════════════════════════════════════════
 const LAYER_COLS=['#c8d8f0','#7aaad8','#2a52a8','#1a3880','#c24e2a','#8a2a50','#2a6040','#7a3a78'];
-const LAYER_CSS=LAYER_COLS;
+const SQ_MAP=[0,1,4,9,6,5,6,9,4,1];
+const IMPOSSIBLE=new Set([2,3,7,8]);
 
-// ═══════════════════════════════════════════════
-// TAB SWITCHING
-// ═══════════════════════════════════════════════
 let activeTab='gnomon';
 function setTab(t){
   activeTab=t;
@@ -425,24 +334,22 @@ function setTab(t){
   document.getElementById('side-gnomon').style.display=t==='gnomon'?'block':'none';
   document.getElementById('side-units').style.display=t==='units'?'block':'none';
   document.getElementById('side-zeros').style.display=t==='zeros'?'block':'none';
-  if(t==='gnomon'){resizeGnomon();}
+  if(t==='gnomon')resizeGnomon();
   if(t==='units')buildUnitsMap();
   if(t==='zeros')drawZeros();
 }
 document.querySelectorAll('.main-tab').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.mt)));
 
-// ═══════════════════════════════════════════════
-// GNOMON TAB
-// ═══════════════════════════════════════════════
+/* ── GNOMON ── */
 const gCvs=document.getElementById('gnomon-canvas');
 const gCtx=gCvs.getContext('2d');
 const G_PR=Math.min(devicePixelRatio||1,2);
-let gN=4, gHL=-1;
+let gN=4,gHL=-1;
 
 function resizeGnomon(){
   const col=document.getElementById('canvas-col');
-  const sz=Math.min(col.clientWidth,col.clientHeight)-40;
-  const s=Math.max(160,sz);
+  const sz=Math.min(col.clientWidth,col.clientHeight)-36;
+  const s=Math.max(140,sz);
   gCvs.width=s*G_PR;gCvs.height=s*G_PR;
   gCvs.style.width=s+'px';gCvs.style.height=s+'px';
   drawGnomon();
@@ -452,153 +359,85 @@ function drawGnomon(){
   const s=gCvs.clientWidth;
   gCtx.resetTransform();gCtx.scale(G_PR,G_PR);
   gCtx.clearRect(0,0,s,s);
-
-  const n=gN;
-  const cell=Math.floor((s-32)/n);
-  const total=cell*n;
-  const ox=(s-total)/2, oy=(s-total)/2;
-
-  // Shadow plane
+  const n=gN,cell=Math.floor((s-32)/n),total=cell*n;
+  const ox=(s-total)/2,oy=(s-total)/2;
   gCtx.fillStyle='rgba(26,22,16,0.04)';
-  gCtx.beginPath();
-  gCtx.roundRect(ox+3,oy+3,total,total,4);
+  gCtx.beginPath();gCtx.roundRect?gCtx.roundRect(ox+3,oy+3,total,total,4):gCtx.rect(ox+3,oy+3,total,total);
   gCtx.fill();
-
   for(let row=0;row<n;row++){
     for(let col=0;col<n;col++){
-      const layer=Math.max(row,col);
-      const isHL=gHL===layer;
-      const ghost=gHL!==-1&&!isHL;
-      const color=LAYER_COLS[layer]||'#ccc';
-      const x=ox+col*cell, y=oy+row*cell;
-
+      const layer=Math.max(row,col),isHL=gHL===layer,ghost=gHL!==-1&&!isHL;
+      const color=LAYER_COLS[layer]||'#ccc',x=ox+col*cell,y=oy+row*cell;
       if(ghost){
-        gCtx.fillStyle='rgba(230,222,206,0.5)';
-        gCtx.fillRect(x+1,y+1,cell-2,cell-2);
-        gCtx.strokeStyle='rgba(216,208,192,0.4)';
-        gCtx.lineWidth=0.5;
-        gCtx.strokeRect(x+1,y+1,cell-2,cell-2);
+        gCtx.fillStyle='rgba(230,222,206,0.5)';gCtx.fillRect(x+1,y+1,cell-2,cell-2);
+        gCtx.strokeStyle='rgba(216,208,192,0.4)';gCtx.lineWidth=0.5;gCtx.strokeRect(x+1,y+1,cell-2,cell-2);
       } else {
-        // Cell body with subtle gradient
         const grad=gCtx.createLinearGradient(x,y,x+cell,y+cell);
-        grad.addColorStop(0,color+'ee');
-        grad.addColorStop(1,color+'aa');
-        gCtx.fillStyle=grad;
-        gCtx.fillRect(x+1,y+1,cell-2,cell-2);
-
-        // Inner highlight
-        gCtx.fillStyle='rgba(255,255,255,0.18)';
-        gCtx.fillRect(x+1,y+1,cell*.4,cell*.4);
-
-        // Border — thicker for active/outermost
-        if(layer===n-1||isHL){
-          gCtx.strokeStyle='rgba(26,22,16,0.3)';
-          gCtx.lineWidth=1.8;
-          gCtx.strokeRect(x+2,y+2,cell-4,cell-4);
-        } else {
-          gCtx.strokeStyle='rgba(255,255,255,0.35)';
-          gCtx.lineWidth=0.8;
-          gCtx.strokeRect(x+1,y+1,cell-2,cell-2);
-        }
-
-        // Count label in corner cell of each layer
-        if(col===layer&&row===0&&cell>=24){
-          const gs=2*(layer+1)-1;
-          gCtx.font=`700 ${Math.min(cell*.4,14)}px Space Mono,monospace`;
-          gCtx.fillStyle='rgba(255,255,255,0.9)';
-          gCtx.textAlign='center';gCtx.textBaseline='middle';
-          gCtx.fillText(gs,x+cell/2,y+cell/2);
+        grad.addColorStop(0,color+'ee');grad.addColorStop(1,color+'aa');
+        gCtx.fillStyle=grad;gCtx.fillRect(x+1,y+1,cell-2,cell-2);
+        gCtx.fillStyle='rgba(255,255,255,0.18)';gCtx.fillRect(x+1,y+1,cell*.4,cell*.4);
+        if(layer===n-1||isHL){gCtx.strokeStyle='rgba(26,22,16,0.3)';gCtx.lineWidth=1.8;gCtx.strokeRect(x+2,y+2,cell-4,cell-4);}
+        else{gCtx.strokeStyle='rgba(255,255,255,0.35)';gCtx.lineWidth=0.8;gCtx.strokeRect(x+1,y+1,cell-2,cell-2);}
+        if(col===layer&&row===0&&cell>=22){
+          gCtx.font=`700 ${Math.min(cell*.4,13)}px Space Mono,monospace`;
+          gCtx.fillStyle='rgba(255,255,255,0.9)';gCtx.textAlign='center';gCtx.textBaseline='middle';
+          gCtx.fillText(2*(layer+1)-1,x+cell/2,y+cell/2);
         }
       }
     }
   }
-
-  // Side ruler line (left)
-  gCtx.strokeStyle='rgba(194,78,42,0.4)';gCtx.lineWidth=1.5;
-  gCtx.setLineDash([3,3]);
-  gCtx.beginPath();gCtx.moveTo(ox-8,oy);gCtx.lineTo(ox-8,oy+total);gCtx.stroke();
-  gCtx.setLineDash([]);
-  gCtx.fillStyle='var(--terracotta)';
+  gCtx.strokeStyle='rgba(194,78,42,0.4)';gCtx.lineWidth=1.5;gCtx.setLineDash([3,3]);
+  gCtx.beginPath();gCtx.moveTo(ox-8,oy);gCtx.lineTo(ox-8,oy+total);gCtx.stroke();gCtx.setLineDash([]);
   gCtx.font='700 10px Space Mono';gCtx.fillStyle='rgba(194,78,42,0.7)';
   gCtx.textAlign='center';gCtx.textBaseline='middle';
-  gCtx.save();gCtx.translate(ox-20,oy+total/2);gCtx.rotate(-Math.PI/2);
-  gCtx.fillText('n = '+n,0,0);gCtx.restore();
-
-  updateGnomonPanel();
-  buildLegend();
+  gCtx.save();gCtx.translate(ox-20,oy+total/2);gCtx.rotate(-Math.PI/2);gCtx.fillText('n = '+n,0,0);gCtx.restore();
+  updateGnomonPanel();buildLegend();
 }
 
 function updateGnomonPanel(){
-  const n=gN;
-  const gs=2*n-1;
+  const n=gN,gs=2*n-1;
   document.getElementById('g-n-val').textContent=n;
   document.getElementById('g-sq').textContent=n*n;
   document.getElementById('g-gnomon').textContent=gs;
   document.getElementById('g-gnomon-sub').textContent=`= 2×${n}−1`;
-  document.getElementById('g-formula').textContent=
-    Array.from({length:n},(_,i)=>2*i+1).join(' + ')+` = ${n*n} = ${n}²`;
+  document.getElementById('g-formula').textContent=Array.from({length:n},(_,i)=>2*i+1).join(' + ')+` = ${n*n} = ${n}²`;
 }
-
 function buildLegend(){
-  const leg=document.getElementById('layer-legend');
-  leg.innerHTML='';
+  const leg=document.getElementById('layer-legend');leg.innerHTML='';
   for(let layer=0;layer<gN;layer++){
-    const gs=2*(layer+1)-1;
-    const col=LAYER_COLS[layer]||'#ccc';
-    const on=gHL===layer;
+    const col=LAYER_COLS[layer]||'#ccc',on=gHL===layer;
     const btn=document.createElement('div');
-    btn.className='ll-item'+(on?' on':'');
-    btn.style.borderColor=on?col:'var(--rule)';
-    btn.innerHTML=`<div class="ll-dot" style="background:${col}"></div><span class="ll-num" style="color:${col}">${gs}</span>`;
-    btn.addEventListener('click',()=>{ gHL=(gHL===layer)?-1:layer; drawGnomon(); });
+    btn.className='ll-item'+(on?' on':'');btn.style.borderColor=on?col:'var(--rule)';
+    btn.innerHTML=`<div class="ll-dot" style="background:${col}"></div><span class="ll-num" style="color:${col}">${2*(layer+1)-1}</span>`;
+    btn.addEventListener('click',()=>{gHL=(gHL===layer)?-1:layer;drawGnomon();});
     leg.appendChild(btn);
   }
 }
-
 document.getElementById('g-n').addEventListener('input',e=>{gN=+e.target.value;gHL=-1;drawGnomon();});
-new ResizeObserver(()=>{ if(activeTab==='gnomon')resizeGnomon(); }).observe(document.getElementById('canvas-col'));
+new ResizeObserver(()=>{if(activeTab==='gnomon')resizeGnomon();}).observe(document.getElementById('canvas-col'));
 
-// ═══════════════════════════════════════════════
-// UNITS DIGIT MAP
-// ═══════════════════════════════════════════════
-const SQ_MAP=[0,1,4,9,6,5,6,9,4,1];
-const IMPOSSIBLE=new Set([2,3,7,8]);
-let selectedDigit=-1;
-let unitsBuilt=false;
-
+/* ── UNITS ── */
+let selectedDigit=-1,unitsBuilt=false;
 function buildUnitsMap(){
   if(unitsBuilt){renderUnits();return;}
   unitsBuilt=true;
-  const inCol=document.getElementById('in-col');
-  const outCol=document.getElementById('out-col');
+  const inCol=document.getElementById('in-col'),outCol=document.getElementById('out-col');
   for(let d=0;d<=9;d++){
     const inN=document.createElement('div');
     inN.className='digit-node';inN.id=`in-${d}`;inN.textContent=d;
-    inN.addEventListener('click',()=>{ selectedDigit=(selectedDigit===d)?-1:d; renderUnits(); });
+    inN.addEventListener('click',()=>{selectedDigit=(selectedDigit===d)?-1:d;renderUnits();});
     inCol.appendChild(inN);
-
     const outN=document.createElement('div');
     outN.className='digit-node'+(IMPOSSIBLE.has(d)?' impossible':'');
     outN.id=`out-${d}`;outN.textContent=d;
-    if(IMPOSSIBLE.has(d)){
-      const x=document.createElement('div');x.className='impossible-x';x.textContent='✗';
-      outN.appendChild(x);
-    }
+    if(IMPOSSIBLE.has(d)){const x=document.createElement('div');x.className='impossible-x';x.textContent='✗';outN.appendChild(x);}
     outCol.appendChild(outN);
   }
-
-  // Symmetry list
   const symList=document.getElementById('sym-list');
   [[1,9,1],[2,8,4],[3,7,9],[4,6,6]].forEach(([a,b,r])=>{
     const row=document.createElement('div');
     row.className='sym-row';row.id=`sym-${a}-${b}`;
-    row.innerHTML=`
-      <div class="sym-n" id="sn-${a}">${a}</div>
-      <span class="sym-arr">and</span>
-      <div class="sym-n" id="sn-${b}">${b}</div>
-      <span class="sym-arr">→</span>
-      <span class="sym-res">${r}</span>
-    `;
+    row.innerHTML=`<div class="sym-n" id="sn-${a}">${a}</div><span class="sym-arr">and</span><div class="sym-n" id="sn-${b}">${b}</div><span class="sym-arr">→</span><span class="sym-res">${r}</span>`;
     symList.appendChild(row);
   });
   renderUnits();
@@ -613,236 +452,112 @@ function renderUnits(){
   document.querySelectorAll('[id^="sn-"]').forEach(el=>el.className='sym-n');
   document.querySelectorAll('.sym-row').forEach(el=>el.classList.remove('on'));
   document.getElementById('ud-svg').innerHTML='';
-
-  const verd=document.getElementById('units-verdict');
-  const vm=document.getElementById('uv-main');
-  const vs=document.getElementById('uv-sub');
-
-  if(d===-1){
-    verd.className='units-verdict none';vm.textContent='Click any digit →';vs.textContent='to see which ending its square produces';return;
-  }
-
-  const out=SQ_MAP[d];
-  const partner=10-d;
-  const hasP=partner!==d&&partner<=9;
-
+  const verd=document.getElementById('units-verdict'),vm=document.getElementById('uv-main'),vs=document.getElementById('uv-sub');
+  if(d===-1){verd.className='units-verdict none';vm.textContent='Click any digit →';vs.textContent='to see which ending its square produces';return;}
+  const out=SQ_MAP[d],partner=10-d,hasP=partner!==d&&partner<=9;
   document.getElementById(`in-${d}`).className='digit-node selected';
   if(hasP)document.getElementById(`in-${partner}`).className='digit-node partner';
   document.getElementById(`out-${out}`).className='digit-node lit';
-
   requestAnimationFrame(()=>drawUnitsArrows(d,hasP?partner:null,out));
-
   if(hasP){
     const a=Math.min(d,partner),b=Math.max(d,partner);
     const sRow=document.getElementById(`sym-${a}-${b}`);
-    if(sRow){
-      sRow.classList.add('on');
-      const snA=document.getElementById(`sn-${a}`),snB=document.getElementById(`sn-${b}`);
-      if(snA)snA.className='sym-n on';if(snB)snB.className='sym-n on';
-    }
+    if(sRow){sRow.classList.add('on');const snA=document.getElementById(`sn-${a}`),snB=document.getElementById(`sn-${b}`);if(snA)snA.className='sym-n on';if(snB)snB.className='sym-n on';}
   }
-
   if(IMPOSSIBLE.has(d)){
-    verd.className='units-verdict impossible-v';
-    vm.textContent=`Ends in ${d} → impossible`;
-    vs.textContent='No perfect square ends in '+d+' — ruled out instantly';
+    verd.className='units-verdict impossible-v';vm.textContent=`Ends in ${d} → impossible`;vs.textContent='No perfect square ends in '+d+' — ruled out instantly';
   } else {
-    verd.className='units-verdict possible';
-    vm.textContent=`${d}² → ends in ${out}`;
-    const examples=[d,d+10,d+20].filter(n=>n>0).map(n=>`${n}²=${n*n}`).join('  ');
-    vs.textContent=examples;
+    verd.className='units-verdict possible';vm.textContent=`${d}² → ends in ${out}`;
+    vs.textContent=[d,d+10,d+20].filter(n=>n>0).map(n=>`${n}²=${n*n}`).join('  ');
   }
 }
 
 function drawUnitsArrows(d,partner,out){
-  const svg=document.getElementById('ud-svg');
-  svg.innerHTML='';
-  const arrowDiv=document.getElementById('ud-arrows');
-  const aRect=arrowDiv.getBoundingClientRect();
-  const W=aRect.width;
-
-  function nodeY(id){
-    const el=document.getElementById(id);
-    if(!el)return 0;
-    const r=el.getBoundingClientRect();
-    return r.top+r.height/2-aRect.top;
-  }
-
+  const svg=document.getElementById('ud-svg');svg.innerHTML='';
+  const arrowDiv=document.getElementById('ud-arrows'),aRect=arrowDiv.getBoundingClientRect(),W=aRect.width;
+  function nodeY(id){const el=document.getElementById(id);if(!el)return 0;const r=el.getBoundingClientRect();return r.top+r.height/2-aRect.top;}
   function mkArrow(y1,y2,color,dashed=false){
-    const mid=W/2;
     const path=document.createElementNS('http://www.w3.org/2000/svg','path');
-    path.setAttribute('d',`M 0 ${y1} C ${mid} ${y1}, ${mid} ${y2}, ${W} ${y2}`);
+    path.setAttribute('d',`M 0 ${y1} C ${W/2} ${y1}, ${W/2} ${y2}, ${W} ${y2}`);
     path.setAttribute('stroke',color);path.setAttribute('stroke-width',dashed?'1.5':'2.5');
     path.setAttribute('fill','none');path.setAttribute('opacity',dashed?'0.5':'1');
     if(dashed)path.setAttribute('stroke-dasharray','4,3');
-    const mid2=W*.5;
     const mId='m'+Math.random().toString(36).slice(2,7);
     const marker=document.createElementNS('http://www.w3.org/2000/svg','marker');
-    marker.setAttribute('id',mId);marker.setAttribute('markerWidth','7');
-    marker.setAttribute('markerHeight','7');marker.setAttribute('refX','5');
-    marker.setAttribute('refY','3');marker.setAttribute('orient','auto');
+    marker.setAttribute('id',mId);marker.setAttribute('markerWidth','7');marker.setAttribute('markerHeight','7');
+    marker.setAttribute('refX','5');marker.setAttribute('refY','3');marker.setAttribute('orient','auto');
     const poly=document.createElementNS('http://www.w3.org/2000/svg','polygon');
     poly.setAttribute('points','0 0, 5 3, 0 6');poly.setAttribute('fill',color);
-    marker.appendChild(poly);svg.appendChild(marker);
-    path.setAttribute('marker-end',`url(#${mId})`);
-    svg.appendChild(path);
+    marker.appendChild(poly);svg.appendChild(marker);path.setAttribute('marker-end',`url(#${mId})`);svg.appendChild(path);
   }
-
-  const y1=nodeY(`in-${d}`);
-  const yo=nodeY(`out-${out}`);
+  const y1=nodeY(`in-${d}`),yo=nodeY(`out-${out}`);
   if(y1&&yo)mkArrow(y1,yo,'#2a6040');
-  if(partner!==null){
-    const yp=nodeY(`in-${partner}`);
-    if(yp&&yo)mkArrow(yp,yo,'#2a52a8',true);
-  }
+  if(partner!==null){const yp=nodeY(`in-${partner}`);if(yp&&yo)mkArrow(yp,yo,'#2a52a8',true);}
 }
 
-// ═══════════════════════════════════════════════
-// TRAILING ZEROS
-// ═══════════════════════════════════════════════
-// zK/zA declared below
-
-// ═══════════════════════════════════════════════
-// TRAILING ZEROS — interactive factory
-// ═══════════════════════════════════════════════
-let zK=0, zA=3;
-
+/* ── ZEROS ── */
+let zK=0,zA=3;
 function toSup(n){const s=['⁰','¹','²','³','⁴','⁵','⁶','⁷','⁸','⁹','¹⁰'];return s[n]||`^${n}`;}
-
-function pill(text, cls){
-  const d=document.createElement('div');
-  d.className='pill '+cls;d.textContent=text;
-  d.style.transition='transform .18s, opacity .18s';
-  return d;
+function pill(text,cls){const d=document.createElement('div');d.className='pill '+cls;d.textContent=text;d.style.transition='transform .18s,opacity .18s';return d;}
+function buildPillRow(cId,leadVal,zeros,zClass){
+  const c=document.getElementById(cId);c.innerHTML='';
+  if(zeros>9){const sp=document.createElement('span');sp.style.cssText='font-family:var(--mono);font-size:14px;font-weight:700;color:var(--ink2)';sp.textContent=(leadVal*Math.pow(10,zeros)).toLocaleString('en-IN');c.appendChild(sp);return;}
+  for(const ch of String(leadVal))c.appendChild(pill(ch,'digit'));
+  for(let i=0;i<zeros;i++){const p=pill('0',zClass);p.style.opacity='0';p.style.transform='scale(0.5)';c.appendChild(p);setTimeout(()=>{p.style.opacity='1';p.style.transform='scale(1)';},i*40);}
 }
-
-function buildPillRow(containerId, leadVal, zeros, zClass){
-  const c=document.getElementById(containerId);
-  c.innerHTML='';
-  const ls=String(leadVal);
-  if(zeros>9){
-    const sp=document.createElement('span');
-    sp.style.cssText='font-family:var(--mono);font-size:14px;font-weight:700;color:var(--ink2)';
-    sp.textContent=(leadVal*Math.pow(10,zeros)).toLocaleString('en-IN');
-    c.appendChild(sp);
-    return;
-  }
-  for(const ch of ls)c.appendChild(pill(ch,'digit'));
-  for(let i=0;i<zeros;i++){
-    const p=pill('0',zClass);
-    p.style.opacity='0';p.style.transform='scale(0.5)';
-    c.appendChild(p);
-    setTimeout(()=>{p.style.opacity='1';p.style.transform='scale(1)';},i*40);
-  }
-}
-
 function drawZeros(){
-  const k=zK,a=zA,aSq=a*a,sqK=k*2;
-  const n=a*Math.pow(10,k);
-  const sq=n*n;
-
-  buildPillRow('z-n-pills',a,k,'zero-n');
-  buildPillRow('z-sq-pills',aSq,sqK,'zero-sq');
-
-  document.getElementById('z-n-zeros').textContent=k;
-  document.getElementById('z-sq-zeros').textContent=sqK;
+  const k=zK,a=zA,aSq=a*a,sqK=k*2,n=a*Math.pow(10,k),sq=n*n;
+  buildPillRow('z-n-pills',a,k,'zero-n');buildPillRow('z-sq-pills',aSq,sqK,'zero-sq');
+  document.getElementById('z-n-zeros').textContent=k;document.getElementById('z-sq-zeros').textContent=sqK;
   document.getElementById('z-n-display').textContent=n.toLocaleString('en-IN');
   document.getElementById('z-sq-display').textContent=sq.toLocaleString('en-IN');
-  document.getElementById('z-formula').textContent=
-    `${n.toLocaleString('en-IN')} = ${a}×10${toSup(k)} → ${sq.toLocaleString('en-IN')} = ${aSq}×10${toSup(sqK)}`;
-
-  // Verdict
-  const vm=document.getElementById('z-verdict-main');
-  const vs=document.getElementById('z-verdict-sub');
-  const vd=document.getElementById('z-verdict');
-  if(k===0){
-    vm.textContent=`n = ${a}, n² = ${sq} — no trailing zeros`;
-    vm.style.color='var(--ink)';
-    vs.textContent='Zero count is 0 (even) — could be a perfect square';
-    vd.style.borderColor='var(--rule)';vd.style.background='#fff';
-  } else if(k%2===0){
-    vm.textContent=`${k} zeros → ${sqK} zeros ✓`;
-    vm.style.color='var(--forest)';
-    vs.textContent=`Even zero count (${sqK}) in n² — passes the zeros test`;
-    vd.style.borderColor='rgba(42,96,64,0.3)';vd.style.background='var(--forest-dim)';
-  } else {
-    vm.textContent=`${k} zeros in n → ${sqK} zeros in n²`;
-    vm.style.color='var(--terracotta)';
-    vs.textContent=`But: if someone showed you a number with ${k} trailing zero${k>1?'s':''}, it can't be a perfect square — since perfect squares need even zero counts`;
-    vd.style.borderColor='rgba(194,78,42,0.3)';vd.style.background='var(--terracotta-dim)';
-  }
-
-  // Update add/rm buttons
-  const addBtn=document.getElementById('z-add-zero');
-  const rmBtn=document.getElementById('z-rm-zero');
+  document.getElementById('z-formula').textContent=`${n.toLocaleString('en-IN')} = ${a}×10${toSup(k)} → ${sq.toLocaleString('en-IN')} = ${aSq}×10${toSup(sqK)}`;
+  const vm=document.getElementById('z-verdict-main'),vs=document.getElementById('z-verdict-sub'),vd=document.getElementById('z-verdict');
+  if(k===0){vm.textContent=`n = ${a}, n² = ${sq} — no trailing zeros`;vm.style.color='var(--ink)';vs.textContent='Zero count is 0 (even) — could be a perfect square';vd.style.borderColor='var(--rule)';vd.style.background='#fff';}
+  else if(k%2===0){vm.textContent=`${k} zeros → ${sqK} zeros ✓`;vm.style.color='var(--forest)';vs.textContent=`Even zero count in n² — passes the zeros test`;vd.style.borderColor='rgba(42,96,64,0.3)';vd.style.background='var(--forest-dim)';}
+  else{vm.textContent=`${k} zeros in n → ${sqK} zeros in n²`;vm.style.color='var(--terracotta)';vs.textContent=`Odd zero count — can't be a perfect square`;vd.style.borderColor='rgba(194,78,42,0.3)';vd.style.background='var(--terracotta-dim)';}
+  const addBtn=document.getElementById('z-add-zero'),rmBtn=document.getElementById('z-rm-zero');
   addBtn.disabled=k>=9;rmBtn.disabled=k<=0;
-  addBtn.style.borderColor=k>=9?'var(--rule2)':'var(--ochre)';
-  addBtn.style.color=k>=9?'var(--ink3)':'var(--ochre)';
+  addBtn.style.borderColor=k>=9?'var(--rule2)':'var(--ochre)';addBtn.style.color=k>=9?'var(--ink3)':'var(--ochre)';
 }
 
-// Init digit buttons
+// Digit buttons
 (function(){
   const wrap=document.getElementById('z-digit-btns');
   for(let d=1;d<=9;d++){
-    const b=document.createElement('button');
-    b.textContent=d;
-    b.style.cssText=`width:28px;height:28px;border-radius:4px;border:1.5px solid var(--rule2);background:${d===zA?'var(--cobalt)':'var(--cream2)'};color:${d===zA?'#fff':'var(--ink3)'};font-family:var(--mono);font-size:12px;font-weight:700;cursor:pointer;transition:all .14s;`;
-    b.addEventListener('click',()=>{
-      zA=d;
-      wrap.querySelectorAll('button').forEach((btn,i)=>{
-        const active=i+1===d;
-        btn.style.background=active?'var(--cobalt)':'var(--cream2)';
-        btn.style.color=active?'#fff':'var(--ink3)';
-        btn.style.borderColor=active?'var(--cobalt)':'var(--rule2)';
-      });
-      drawZeros();
-    });
+    const b=document.createElement('button');b.textContent=d;
+    b.style.cssText=`width:30px;height:30px;border-radius:4px;border:1.5px solid var(--rule2);background:${d===zA?'var(--cobalt)':'var(--cream2)'};color:${d===zA?'#fff':'var(--ink3)'};font-family:var(--mono);font-size:13px;font-weight:700;cursor:pointer;transition:all .14s;`;
+    b.addEventListener('click',()=>{zA=d;wrap.querySelectorAll('button').forEach((btn,i)=>{const active=i+1===d;btn.style.background=active?'var(--cobalt)':'var(--cream2)';btn.style.color=active?'#fff':'var(--ink3)';btn.style.borderColor=active?'var(--cobalt)':'var(--rule2)';});drawZeros();});
     wrap.appendChild(b);
   }
 })();
 
-// Style add/rm buttons properly
-document.getElementById('z-add-zero').style.cssText='padding:5px 12px;border-radius:5px;border:1.5px solid var(--ochre);background:transparent;color:var(--ochre);font-family:var(--mono);font-size:11px;font-weight:700;cursor:pointer;transition:all .14s;letter-spacing:.5px;';
-document.getElementById('z-rm-zero').style.cssText='padding:5px 12px;border-radius:5px;border:1.5px solid var(--rule2);background:transparent;color:var(--ink3);font-family:var(--mono);font-size:11px;font-weight:700;cursor:pointer;transition:all .14s;letter-spacing:.5px;';
-
-document.getElementById('z-add-zero').textContent='+0';
-document.getElementById('z-rm-zero').textContent='−0';
-
+const addZeroStyle='padding:6px 13px;border-radius:5px;border:1.5px solid var(--ochre);background:transparent;color:var(--ochre);font-family:var(--mono);font-size:12px;font-weight:700;cursor:pointer;transition:all .14s;letter-spacing:.5px;';
+const rmZeroStyle='padding:6px 13px;border-radius:5px;border:1.5px solid var(--rule2);background:transparent;color:var(--ink3);font-family:var(--mono);font-size:12px;font-weight:700;cursor:pointer;transition:all .14s;letter-spacing:.5px;';
+document.getElementById('z-add-zero').style.cssText=addZeroStyle;document.getElementById('z-add-zero').textContent='+0';
+document.getElementById('z-rm-zero').style.cssText=rmZeroStyle;document.getElementById('z-rm-zero').textContent='−0';
 document.getElementById('z-add-zero').addEventListener('click',()=>{if(zK<9){zK++;drawZeros();}});
 document.getElementById('z-rm-zero').addEventListener('click',()=>{if(zK>0){zK--;drawZeros();}});
 
-// Test cases row
+// Test cases
 (function(){
   const wrap=document.getElementById('z-test-cases');
-  const cases=[
-    {n:100,label:'100 (1 zero)'},{n:400,label:'400 (2 zeros)'},{n:1000,label:'1000 (3 zeros)'},{n:10000,label:'10000 (4 zeros)'},{n:90000,label:'90000 (4 zeros)'}
-  ];
-  cases.forEach(c=>{
-    const isEven=(String(c.n).match(/0+$/)||[''])[0].length%2===0;
+  [{n:100,label:'100'},{n:400,label:'400'},{n:1000,label:'1000'},{n:10000,label:'10,000'},{n:90000,label:'90,000'}].forEach(c=>{
+    const zeros=(String(c.n).match(/0+$/)||[''])[0].length;
+    const isEven=zeros%2===0;
     const btn=document.createElement('button');
-    btn.style.cssText=`padding:4px 10px;border-radius:4px;border:1px solid ${isEven?'rgba(42,96,64,0.35)':'rgba(194,78,42,0.35)'};background:${isEven?'var(--forest-dim)':'var(--terracotta-dim)'};color:${isEven?'var(--forest)':'var(--terracotta)'};font-family:var(--mono);font-size:10px;font-weight:700;cursor:pointer;transition:filter .12s;`;
+    btn.style.cssText=`padding:5px 11px;border-radius:4px;border:1px solid ${isEven?'rgba(42,96,64,0.35)':'rgba(194,78,42,0.35)'};background:${isEven?'var(--forest-dim)':'var(--terracotta-dim)'};color:${isEven?'var(--forest)':'var(--terracotta)'};font-family:var(--mono);font-size:11px;font-weight:700;cursor:pointer;`;
     btn.textContent=c.label;
-    btn.title=isEven?'Even zero count — could be a square':'Odd zero count — NOT a square';
     btn.addEventListener('click',()=>{
-      const zeros=(String(c.n).match(/0+$/)||[''])[0].length;
-      const lead=parseInt(String(c.n).replace(/0+$/,''));
+      const lead=parseInt(String(c.n).replace(/0+$/, ''));
       zK=zeros;zA=lead;
-      // Update digit buttons
-      document.querySelectorAll('#z-digit-btns button').forEach((b,i)=>{
-        const active=i+1===lead;
-        b.style.background=active?'var(--cobalt)':'var(--cream2)';
-        b.style.color=active?'#fff':'var(--ink3)';
-        b.style.borderColor=active?'var(--cobalt)':'var(--rule2)';
-      });
+      document.querySelectorAll('#z-digit-btns button').forEach((b,i)=>{const active=i+1===lead;b.style.background=active?'var(--cobalt)':'var(--cream2)';b.style.color=active?'#fff':'var(--ink3)';b.style.borderColor=active?'var(--cobalt)':'var(--rule2)';});
       drawZeros();
     });
     wrap.appendChild(btn);
   });
 })();
 
-// ═══════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════
 setTab('gnomon');
 </script>
 </body>
